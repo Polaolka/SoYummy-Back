@@ -1,16 +1,15 @@
 const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
-const { nanoid } = require("nanoid");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { SECRET_KEY, BASE_URL } = process.env;
 
 const { User } = require("../../models/user");
 
-require("dotenv").config();
-
 const { RequestError, sendEmail } = require("../../helpers");
-const { BASE_URL } = process.env;
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   const user = await User.findOne({ email });
 
@@ -20,28 +19,24 @@ const register = async (req, res) => {
 
   const hashPassword = await bcrypt.hash(password, 10);
   const avatarURL = gravatar.url(email);
-  const verificationToken = nanoid();
+
+
 
   const newUser = await User.create({
     ...req.body,
     password: hashPassword,
     avatarURL,
-    verificationToken,
   });
-  const verifyEm = {
-    to: email,
-    subject: "Verify Email",
-    html: `<a target="_blank" href="${BASE_URL}/users/verify/${verificationToken}">Click verify email</a>`,
+
+  const payload = {
+    id: newUser._id,
   };
 
-  await sendEmail(verifyEm);
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
+  await User.findByIdAndUpdate(newUser._id, { token });
+
   
-  res.status(201).json({
-    user: {
-      email: newUser.email,
-      subscription: newUser.subscription,
-    },
-  });
+  res.status(201).json({ message: 'registration successful', email: newUser.email, token });
 };
 
 module.exports = register;
