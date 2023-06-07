@@ -13,8 +13,6 @@ const { ctrlWrapper } = require("../../helpers");
 // signup
 router.post( "/register", validateBody(schemas.registerSchema), ctrlWrapper(ctrl.register));
 
-router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail) );
-
 // login
 router.post( "/login", validateBody(schemas.loginSchema), ctrlWrapper(ctrl.login) );
 
@@ -22,9 +20,6 @@ router.post( "/login", validateBody(schemas.loginSchema), ctrlWrapper(ctrl.login
 router.post("/logout", authenticate, ctrlWrapper(ctrl.logout));
 
 router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
-
-// // PATCH /users
-// router.patch( "/", authenticate, validateSubscrBody(schemas.updateSubscriptionSchema), ctrlWrapper(ctrl.updateSubscription));
 
 // avatar
 router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar));
