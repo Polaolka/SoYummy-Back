@@ -20,8 +20,6 @@ const register = async (req, res) => {
   const hashPassword = await bcrypt.hash(password, 10);
   const avatarURL = gravatar.url(email);
 
-
-
   const newUser = await User.create({
     ...req.body,
     password: hashPassword,
@@ -35,8 +33,17 @@ const register = async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
   await User.findByIdAndUpdate(newUser._id, { token });
 
-  
-  res.status(201).json({ message: 'registration successful', email: newUser.email, token });
+  res.status(201).json({
+    message: "registration successful",
+    token,
+    user: {
+      id: newUser._id,
+      email: newUser.email,
+      name: newUser.name,
+      email: newUser.email,
+      avatar: newUser.avatarURL,
+    },
+  });
 };
 
 module.exports = register;
