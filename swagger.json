@@ -1,0 +1,202 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "SoYuammy-app Server",
+      "description": "This is a SoYuammy-app Server based on the OpenAPI 3.0 specification. ",
+      "contact": {
+        "email": "olgapolichuk@ukr.net"
+      },
+      "version": "1.0.0"
+    },
+    "externalDocs": {
+      "description": "Find out more about SoYuammy-app",
+      "url": "https://github.com/AnastasiiaHM/soyummy-project"
+    },
+    "servers": [
+      {
+        "url": "https://soyummy-back.onrender.com"
+      },
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "tags": [
+      {
+        "name": "user",
+        "description": "Operations about user"
+      }
+    ],
+    "paths": {
+      "/user/register": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Create user",
+          "description": "Create a new User in the SoYummy-app.",
+          "operationId": "createUser",
+          "parameters": [],
+          "requestBody": {
+            "required": true,
+            "description": "Created user object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterUser"
+                }
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LogInUser"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/user/login": {
+        "post": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Log In to the system",
+          "description": "",
+          "operationId": "loginUser",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "401": {
+              "description": "Email or password is wrong"
+            }
+          }
+        }
+      },
+      "/user/logout": {
+        "get": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Logs out current logged in user session",
+          "description": "",
+          "operationId": "logoutUser",
+          "parameters": [],
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "user"
+          ],
+          "summary": "Update user",
+          "description": "This can only be done by the logged in user.",
+          "operationId": "updateUser",
+          "parameters": [],
+          "requestBody": {
+            "description": "Update an existent user in the store",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "responses": {
+            "default": {
+              "description": "successful operation"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "RegisterUser": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "theUser"
+            },
+            "email": {
+              "type": "string",
+              "example": "john@email.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "123456"
+            }
+          },
+          "xml": {
+            "name": "user"
+          }
+        },
+        "LogInUser": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "example": "john@email.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "12345"
+            }
+          },
+          "xml": {
+            "name": "user"
+          }
+        }
+      },
+      "requestBodies": {
+        "Pet": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {}
+            }
+          }
+        },
+        "UserArray": {
+          "description": "List of user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {}
+              }
+            }
+          }
+        }
+      },
+      "securitySchemes": {
+        "petstore_auth": {
+          "type": "oauth2",
+          "flows": {
+            "implicit": {
+              "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+              "scopes": {
+                "write:pets": "modify pets in your account",
+                "read:pets": "read your pets"
+              }
+            }
+          }
+        },
+        "api_key": {
+          "type": "apiKey",
+          "name": "api_key",
+          "in": "header"
+        }
+      }
+    }
+  }
