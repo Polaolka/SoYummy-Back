@@ -4,13 +4,11 @@ const Joi = require("joi");
 
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-const allowedSubscriptions = ["starter", "pro", "business"];
-
 const userSchema = new Schema(
   {
     password: {
       type: String,
-      required: [true, "Set password for user"],
+      required: [true, "Set password"],
       minlength: 6,
     },
     email: {
@@ -19,10 +17,10 @@ const userSchema = new Schema(
       unique: true,
       match: emailRegex,
     },
-    subscription: {
+    name: {
       type: String,
-      enum: ["starter", "pro", "business"],
-      default: "starter",
+      required: [true, "Set name"],
+      minlength: 3,
     },
     token: {
       type: String,
@@ -32,14 +30,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    verify: {
-      type: Boolean,
-      default: false,
-    },
-    verificationToken: {
-      type: String,
-      required: [true, "Verify token is required"],
-    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -47,9 +37,9 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
+  name: Joi.string().min(3).required(),
   email: Joi.string().pattern(emailRegex).required(),
   password: Joi.string().min(6).required(),
-  subscription: Joi.string().valid(...allowedSubscriptions),
 });
 
 const loginSchema = Joi.object({
@@ -57,21 +47,9 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-const updateSubscriptionSchema = Joi.object({
-  subscription: Joi.string()
-    .required()
-    .valid(...allowedSubscriptions),
-});
-
-const verifySchema = Joi.object({
-  email: Joi.string().pattern(emailRegex).required(),
-});
-
 const schemas = {
   registerSchema,
   loginSchema,
-  updateSubscriptionSchema,
-  verifySchema,
 };
 
 const User = model("user", userSchema);
