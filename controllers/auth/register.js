@@ -37,11 +37,11 @@ const register = async (req, res) => {
     message: "registration successful",
     token,
     user: {
-      id: newUser._id,
+      _id: newUser._id,
       email: newUser.email,
       name: newUser.name,
       email: newUser.email,
-      avatar: newUser.avatarURL,
+      avatarURL: newUser.avatarURL,
     },
   });
 };

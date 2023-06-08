@@ -30,6 +30,16 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    shoppingList: {
+      type: Array,
+      default: [],
+    },
+    // daysInApp: {
+    //   type: Number,
+    //   default: null,
+    // }
+
+
   },
   { versionKey: false, timestamps: true }
 );

@@ -19,6 +19,7 @@ router.post( "/login", validateBody(schemas.loginSchema), ctrlWrapper(ctrl.login
 // logout
 router.post("/logout", authenticate, ctrlWrapper(ctrl.logout));
 
+//  current
 router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
 // avatar

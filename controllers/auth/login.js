@@ -31,11 +31,11 @@ const login = async (req, res) => {
   res.json({
     token,
     user: {
-      id: user._id,
+      _id: user._id,
       email: user.email,
 			name: user.name,
 			email: user.email,
-			avatar: user.avatarURL,
+			avatarURL: user.avatarURL,
     },
   });
 };
