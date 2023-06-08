@@ -1,17 +1,72 @@
 const multer = require("multer");
 const path = require("path");
+require("dotenv").config();
 
-const tmpDir = path.join(__dirname, "../", "tmp");
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { RequestError } = require("../helpers");
 
-const multerConfig = multer.diskStorage({
-  destination: tmpDir,
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+const {CLOUD_NAME, 
+CLOUD_API_KEY, 
+CLOUD_API_SECRET} = process.env;
+
+cloudinary.config({ 
+  cloud_name: CLOUD_NAME, 
+  api_key: CLOUD_API_KEY, 
+  api_secret: CLOUD_API_SECRET, 
+});
+
+const recipeStorage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+
+    if (!req.file) {
+      throw RequestError(404, 'Image Not found');
+    }
+
+    let folder;
+    if (file.fieldname === 'recipeIMG') {
+      folder = 'recipeIMG';
+    }  else {
+      folder = 'docs';
+    }
+    return {
+      folder: folder,
+      allowed_formats: ['jpg', 'png'],
+      public_id: file.originalname,
+      transformation: [{ width: 500, height: 500 }],
+    };
   },
 });
 
-const upload = multer({
-  storage: multerConfig,
+
+const avaStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+
+    if (!req.file) {
+      throw RequestError(404, 'Image Not found');
+    }
+
+    const { id } = req.user;
+    let folder;
+    if (file.fieldname === 'avatar') {
+      folder = 'avatars';
+    } else {
+      folder = 'docs';
+    }
+    return {
+      folder: folder,
+      allowed_formats: ['jpg', 'png'],
+      public_id: `${id}_${file.originalname}`,
+      transformation: [{ width: 100, height: 100, crop: 'fill' }],
+    };
+  },
 });
 
-module.exports = upload;
+const uploadAva = multer({ storage: avaStorage });
+const uploadRecipe = multer({ storage: recipeStorage });
+
+module.exports = { uploadAva, uploadRecipe };
+
+
