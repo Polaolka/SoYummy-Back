@@ -28,6 +28,10 @@
     {
       "name": "categories",
       "description": "Operations about category"
+    },
+    {
+      "name": "recipes",
+      "description": "Operations about recipes"
     }
   ],
   "paths": {
@@ -79,8 +83,8 @@
         "tags": [
           "user"
         ],
-        "summary": "Log In to the system",
-        "description": "",
+        "summary": "Log In to the app SoYummy",
+        "description": "user login to the app SoYummy",
         "operationId": "loginUser",
         "parameters": [],
         "requestBody": {
@@ -127,7 +131,7 @@
             "bearerAuth": []
           }
         ],
-        "summary": "Logs out current user ffrom the SoYummy",
+        "summary": "Logs out current user from the SoYummy",
         "parameters": [
           {
             "in": "header",
@@ -203,26 +207,50 @@
         }
       }
     },
-    "/users/edit": {
-      "put": {
+    "/users/avatar": {
+      "patch": {
         "tags": [
           "user"
         ],
-        "summary": "This route updates user information",
+        "summary": "This route updates user avatar",
         "description": "This can only be done by the logged in user.",
-        "operationId": "updateUser",
+        "operationId": "updateUserAvatar",
         "parameters": [],
         "requestBody": {
-          "description": "Update an existent user in the store",
+          "description": "Update an existent user avatar in app SoYummy",
           "content": {
-            "application/json": {
-              "schema": {}
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
             }
           }
         },
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful update avatar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateAvatar"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
@@ -274,6 +302,54 @@
           }
         }
       }
+    },
+    "/recipes": {
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about all recipes",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getAllRecipes",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllRecipes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -296,6 +372,94 @@
         },
         "xml": {
           "name": "user"
+        }
+      },
+      "AllRecipes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "6462a8f74c3d0ddd28897fb8"
+            },
+            "title": {
+              "type": "string",
+              "example": "Mediterranean Pasta Salad"
+            },
+            "category": {
+              "type": "string",
+              "example": "Seafood"
+            },
+            "area": {
+              "type": "string",
+              "example": "Italian"
+            },
+            "instructions": {
+              "type": "string",
+              "example": "Bring a large saucepan of salted water to the boil..."
+            },
+            "description": {
+              "type": "string",
+              "example": "A salad made with pasta, vegetables..."
+            },
+            "thumb": {
+              "type": "string",
+              "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+            },
+            "preview": {
+              "type": "string",
+              "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+            },
+            "time": {
+              "type": "string",
+              "example": "27"
+            },
+            "youtube": {
+              "type": "string",
+              "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "640c2dd963a319ea671e3724"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "example": "200 g"
+                  }
+                }
+              }
+            },
+            "owner": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "6481ae94d9b2746f712cd11f"
+                }
+              }
+            },
+            "popularity": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "recipes"
         }
       },
       "RegisterUserResponce": {
@@ -411,6 +575,18 @@
         },
         "xml": {
           "name": "categories"
+        }
+      },
+      "UpdateAvatar": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "example": "https://res.cloudinary.com/dj5smkin6/image/upload/v1686237332/avatars/6481ae94d9b2746f712cd11f_ice-cream.jpg.jpg"
+          }
+        },
+        "xml": {
+          "name": "user"
         }
       }
     },

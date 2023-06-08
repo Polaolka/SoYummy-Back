@@ -20,7 +20,7 @@ const recipeStorage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
 
-    if (!req.file) {
+    if (!file) {
       throw RequestError(404, 'Image Not found');
     }
 
@@ -44,7 +44,7 @@ const avaStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
 
-    if (!req.file) {
+    if (!file) {
       throw RequestError(404, 'Image Not found');
     }
 
