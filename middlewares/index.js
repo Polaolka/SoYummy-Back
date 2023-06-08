@@ -5,7 +5,7 @@ const {
 } = require("./validateBody");
 const isValidId = require("./isValidId");
 const authenticate = require("./authenticate");
-const upload = require("./upload");
+const {uploadAva, uploadRecipe} = require("./upload");
 
 module.exports = {
   validateFavoriteBody,
@@ -13,5 +13,6 @@ module.exports = {
   isValidId,
   authenticate,
   validateSubscrBody,
-  upload,
+  uploadAva,
+  uploadRecipe
 };

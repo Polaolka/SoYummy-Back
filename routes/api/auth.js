@@ -4,7 +4,7 @@ const router = express.Router();
 
 const ctrl = require("../../controllers/auth");
 
-const { validateBody, authenticate, validateSubscrBody, upload, } = require("../../middlewares");
+const { validateBody, authenticate, validateSubscrBody, uploadAva, } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -23,6 +23,9 @@ router.post("/logout", authenticate, ctrlWrapper(ctrl.logout));
 router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
 // avatar
-router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar));
+router.patch('/avatar', authenticate, uploadAva.single('avatar'), ctrl.updateAvatar);
+
+// router.post('/user', authenticate, upload.single('recipeImg'), ctrl.addAvatar);
+// router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar));
 
 module.exports = router;
