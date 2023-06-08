@@ -2,21 +2,21 @@ const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
-const recipesSchema = new Schema({
+const recipeSchema = new Schema({
   title: { type: String },
-  //   category: { type: String },
-  //   area: { type: String },
-  //   instructions: { type: String },
-  //   description: { type: String },
-  //   thumb: { type: String },
-  //   preview: { type: String },
-  //   time: { type: String },
-  //   youtube: { type: String },
-  //   tags: { type: Array },
-  //   ingredients: { type: Array },
+  category: { type: String },
+  area: { type: String },
+  instructions: { type: String },
+  description: { type: String },
+  thumb: { type: String },
+  preview: { type: String },
+  time: { type: String },
+  youtube: { type: String },
+  tags: { type: Array },
+  ingredients: { type: Array },
 });
 
-recipesSchema.post("save", handleMongooseError);
+recipeSchema.post("save", handleMongooseError);
 
 // const addSchema = Joi.object({
 //   // name: Joi.string().min(3).max(30).required(),
@@ -26,11 +26,11 @@ recipesSchema.post("save", handleMongooseError);
 //   addSchema,
 // };
 
-const Recipes = model("recipe", recipesSchema);
+const Recipe = model("recipe", recipeSchema);
 
 module.exports = {
   //   schemas,
-  Recipes,
+  Recipe,
 };
 
 //   // title: { type: String, required: [true, "Set title"], minlength: 4 },

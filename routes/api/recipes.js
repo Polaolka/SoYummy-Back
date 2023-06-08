@@ -1,10 +1,11 @@
+
 const express = require("express");
 
 const ctrl = require("../../controllers/recipes");
 
 const { validateBody, authenticate } = require("../../middlewares");
 
-// const { schemas } = require("../../models/categories");
+
 
 const { ctrlWrapper } = require("../../helpers");
 
@@ -12,8 +13,12 @@ const { isValidId } = require("../../middlewares");
 
 const router = express.Router();
 
+router.get("/", authenticate, ctrlWrapper(ctrl.getAll));
+
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.getById));
-router.get("/main-page", authenticate, ctrlWrapper(ctrl.getById));
+
+router.delete("/", authenticate, ctrlWrapper(ctrl.deleteAllRecipes));
+// router.get("/main-page", authenticate, ctrlWrapper(ctrl.getById));
 
 // router.post(
 //   "/",
