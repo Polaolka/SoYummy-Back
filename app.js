@@ -8,8 +8,8 @@ const swaggerDocument = require("./swagger.json");
 
 const categoriesRouter = require("./routes/api/categories");
 const authRouter = require("./routes/api/auth");
-const recipesRouter = require("./routes/api/reciepes");
 const ingredientsRouter = require("./routes/api/ingredients");
+const recipesRouter = require("./routes/api/recipes");
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.use("/users", authRouter);
-app.use("/api/categories", categoriesRouter);
+app.use("/categories", categoriesRouter);
 app.use("/api/recipes", recipesRouter);
 app.use("/api//ingredients", ingredientsRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));

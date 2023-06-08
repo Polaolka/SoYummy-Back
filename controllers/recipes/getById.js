@@ -1,15 +1,15 @@
-const { Recipes } = require("../../models/recipes");
+const { Recipe } = require("../../models/recipe");
+const { RequestError } = require("../../helpers");
 
 const getById = async (req, res) => {
   const { id } = req.params;
 
-  const respons = await Recipes.findById(id);
+  const result = await Recipe.findById(id);
 
-  if (!respons) {
-    res.status(404).json({ message: "Not found" });
+  if (!result) {
+    throw RequestError(404, "Not found");
   }
-
-  res.status(200).json(respons);
+  res.status(200).json(result);
 };
 
 module.exports = getById;

@@ -4,8 +4,6 @@ const ctrl = require("../../controllers/recipes");
 
 const { validateBody, authenticate } = require("../../middlewares");
 
-// const { schemas } = require("../../models/categories");
-
 const { ctrlWrapper } = require("../../helpers");
 
 const { isValidId } = require("../../middlewares");
