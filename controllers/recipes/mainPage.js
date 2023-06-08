@@ -1,9 +1,9 @@
-const { Recipes } = require("../../models/recipes");
+const { Recipe } = require("../../models/recipe");
 const { Category } = require("../../models/categories");
 
 const mainPage = async (req, res) => {
   const category = await Category.find({});
-  const recipe = await Recipes.find({});
+  const recipe = await Recipe.find({});
 
   const response = {};
 
