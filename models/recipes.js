@@ -4,16 +4,16 @@ const Joi = require("joi");
 
 const recipesSchema = new Schema({
   title: { type: String },
-  //   category: { type: String },
-  //   area: { type: String },
-  //   instructions: { type: String },
-  //   description: { type: String },
-  //   thumb: { type: String },
-  //   preview: { type: String },
-  //   time: { type: String },
-  //   youtube: { type: String },
-  //   tags: { type: Array },
-  //   ingredients: { type: Array },
+  category: { type: String },
+  area: { type: String },
+  instructions: { type: String },
+  description: { type: String },
+  thumb: { type: String },
+  preview: { type: String },
+  time: { type: String },
+  youtube: { type: String },
+  tags: { type: Array },
+  ingredients: { type: Array },
 });
 
 recipesSchema.post("save", handleMongooseError);

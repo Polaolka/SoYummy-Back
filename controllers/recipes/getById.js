@@ -5,8 +5,9 @@ const getById = async (req, res) => {
 
   const respons = await Recipes.findById(id);
 
-  console.log(id);
-  console.log(respons);
+  if (!respons) {
+    res.status(404).json({ message: "Not found" });
+  }
 
   res.status(200).json(respons);
 };
