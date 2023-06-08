@@ -1,202 +1,430 @@
 {
-    "openapi": "3.0.3",
-    "info": {
-      "title": "SoYuammy-app Server",
-      "description": "This is a SoYuammy-app Server based on the OpenAPI 3.0 specification. ",
-      "contact": {
-        "email": "olgapolichuk@ukr.net"
-      },
-      "version": "1.0.0"
+  "openapi": "3.0.3",
+  "info": {
+    "title": "SoYuammy-app Server",
+    "description": "This is a SoYuammy-app Server based on the OpenAPI 3.0 specification. ",
+    "contact": {
+      "email": "olgapolichuk@ukr.net"
     },
-    "externalDocs": {
-      "description": "Find out more about SoYuammy-app",
-      "url": "https://github.com/AnastasiiaHM/soyummy-project"
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about SoYuammy-app",
+    "url": "https://github.com/AnastasiiaHM/soyummy-project"
+  },
+  "servers": [
+    {
+      "url": "https://soyummy-back.onrender.com"
     },
-    "servers": [
-      {
-        "url": "https://soyummy-back.onrender.com"
-      },
-      {
-        "url": "http://localhost:3000"
-      }
-    ],
-    "tags": [
-      {
-        "name": "user",
-        "description": "Operations about user"
-      }
-    ],
-    "paths": {
-      "/user/register": {
-        "post": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Create user",
-          "description": "Create a new User in the SoYummy-app.",
-          "operationId": "createUser",
-          "parameters": [],
-          "requestBody": {
-            "required": true,
-            "description": "Created user object",
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "categories",
+      "description": "Operations about category"
+    }
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "Create a new User in the SoYummy.",
+        "operationId": "createUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegisterUser"
+                  "$ref": "#/components/schemas/RegisterUserResponce"
                 }
               }
             }
           },
-          "responses": {
-            "default": {
-              "description": "successful operation",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LogInUser"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/user/login": {
-        "post": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Log In to the system",
-          "description": "",
-          "operationId": "loginUser",
-          "parameters": [],
-          "responses": {
-            "200": {
-              "description": "successful operation"
-            },
-            "401": {
-              "description": "Email or password is wrong"
-            }
-          }
-        }
-      },
-      "/user/logout": {
-        "get": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Logs out current logged in user session",
-          "description": "",
-          "operationId": "logoutUser",
-          "parameters": [],
-          "responses": {
-            "default": {
-              "description": "successful operation"
-            }
-          }
-        },
-        "put": {
-          "tags": [
-            "user"
-          ],
-          "summary": "Update user",
-          "description": "This can only be done by the logged in user.",
-          "operationId": "updateUser",
-          "parameters": [],
-          "requestBody": {
-            "description": "Update an existent user in the store",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+          "400": {
+            "description": "Bad request (invalid request body)"
           },
-          "responses": {
-            "default": {
-              "description": "successful operation"
-            }
+          "409": {
+            "description": "Provided email already exists"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
       }
     },
-    "components": {
-      "schemas": {
-        "RegisterUser": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "theUser"
-            },
-            "email": {
-              "type": "string",
-              "example": "john@email.com"
-            },
-            "password": {
-              "type": "string",
-              "example": "123456"
+    "/users/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Log In to the system",
+        "description": "",
+        "operationId": "loginUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "description": "login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogInUser"
+              }
             }
-          },
-          "xml": {
-            "name": "user"
           }
         },
-        "LogInUser": {
-          "type": "object",
-          "properties": {
-            "email": {
-              "type": "string",
-              "example": "john@email.com"
-            },
-            "password": {
-              "type": "string",
-              "example": "12345"
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponce"
+                }
+              }
             }
           },
-          "xml": {
-            "name": "user"
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "401": {
+            "description": "Login error"
+          },
+          "500": {
+            "description": "Server error"
           }
         }
-      },
-      "requestBodies": {
-        "Pet": {
-          "description": "Pet object that needs to be added to the store",
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Logs out current user ffrom the SoYummy",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "logoutUser",
+        "responses": {
+          "204": {
+            "description": "The user is logged out"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Log In to the system",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getCurrent",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponce"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/users/edit": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "This route updates user information",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
+        "parameters": [],
+        "requestBody": {
+          "description": "Update an existent user in the store",
           "content": {
             "application/json": {
               "schema": {}
             }
           }
         },
-        "UserArray": {
-          "description": "List of user object",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {}
-              }
-            }
+        "responses": {
+          "default": {
+            "description": "successful operation"
           }
         }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about categories",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getCategory",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categories"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegisterUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Test Test"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@ukr.net"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
       },
-      "securitySchemes": {
-        "petstore_auth": {
-          "type": "oauth2",
-          "flows": {
-            "implicit": {
-              "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
-              "scopes": {
-                "write:pets": "modify pets in your account",
-                "read:pets": "read your pets"
+      "RegisterUserResponce": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "registration successful"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODE4YzE3MGU2MDA2NzJmY2JkNzM5ZSIsImlhdCI6MTY4NjIxMTYwNywiZXhwIjoxNjg2Mjk0NDA3fQ.mskjcdqC4nmRiS1XbqS999nHLEHGOLInQmnUspzg2Zc"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "registration successful"
+              },
+              "email": {
+                "type": "string",
+                "example": "test@ukr.net"
+              },
+              "name": {
+                "type": "string",
+                "example": "Test Test"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "//www.gravatar.com/avatar/d52b22726b15ebbb067e17b9a8e614d1"
               }
             }
           }
         },
-        "api_key": {
-          "type": "apiKey",
-          "name": "api_key",
-          "in": "header"
+        "xml": {
+          "name": "user"
         }
+      },
+      "CurrentUserResponce": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "registration successful"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODE4YzE3MGU2MDA2NzJmY2JkNzM5ZSIsImlhdCI6MTY4NjIxMTYwNywiZXhwIjoxNjg2Mjk0NDA3fQ.mskjcdqC4nmRiS1XbqS999nHLEHGOLInQmnUspzg2Zc"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "registration successful"
+              },
+              "email": {
+                "type": "string",
+                "example": "test@ukr.net"
+              },
+              "name": {
+                "type": "string",
+                "example": "Test Test"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "//www.gravatar.com/avatar/d52b22726b15ebbb067e17b9a8e614d1"
+              },
+              "shoppingList": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "LogInUser": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@ukr.net"
+          },
+          "password": {
+            "type": "string",
+            "example": "123456"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "Categories": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "6462a6cd4c3d0ddd28897f8e"
+            },
+            "name": {
+              "type": "string",
+              "example": "Beef"
+            }
+          }
+        },
+        "xml": {
+          "name": "categories"
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
       }
     }
   }
+}
