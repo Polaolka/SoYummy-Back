@@ -49,7 +49,14 @@
         },
         "responses": {
           "201": {
-            "description": "Registration success"
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterUserResponce"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)"
@@ -59,16 +66,6 @@
           },
           "500": {
             "description": "Server error"
-          },
-          "default": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegisterUserResponce"
-                }
-              }
-            }
           }
         }
       }
@@ -84,7 +81,7 @@
         "parameters": [],
         "requestBody": {
           "required": true,
-          "description": "logout",
+          "description": "login",
           "content": {
             "application/json": {
               "schema": {
@@ -95,7 +92,14 @@
         },
         "responses": {
           "201": {
-            "description": "User is logged in"
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponce"
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad request (invalid request body)"
@@ -105,16 +109,6 @@
           },
           "500": {
             "description": "Server error"
-          },
-          "default": {
-            "description": "successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RegisterUserResponce"
-                }
-              }
-            }
           }
         }
       }
@@ -124,21 +118,26 @@
         "tags": [
           "user"
         ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Logs out current user ffrom the SoYummy",
-        "description": "",
-        "operationId": "logoutUser",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "description": "logout",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LogoutUser"
-              }
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
             }
           }
-        },
+        ],
+        "description": "",
+        "operationId": "logoutUser",
         "responses": {
           "204": {
             "description": "The user is logged out"
@@ -150,12 +149,62 @@
             "description": "Server error"
           }
         }
-      },
+      }
+    },
+    "/user/getCurrent": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Log In to the system",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getCurrent",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponce"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/edit": {
       "put": {
         "tags": [
           "user"
         ],
-        "summary": "Update user",
+        "summary": "This route updates user information",
         "description": "This can only be done by the logged in user.",
         "operationId": "updateUser",
         "parameters": [],
@@ -211,7 +260,7 @@
           "user": {
             "type": "object",
             "properties": {
-              "id": {
+              "_id": {
                 "type": "string",
                 "example": "registration successful"
               },
@@ -223,9 +272,52 @@
                 "type": "string",
                 "example": "Test Test"
               },
-              "avatar": {
+              "avatarURL": {
                 "type": "string",
                 "example": "//www.gravatar.com/avatar/d52b22726b15ebbb067e17b9a8e614d1"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "CurrentUserResponce": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "registration successful"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODE4YzE3MGU2MDA2NzJmY2JkNzM5ZSIsImlhdCI6MTY4NjIxMTYwNywiZXhwIjoxNjg2Mjk0NDA3fQ.mskjcdqC4nmRiS1XbqS999nHLEHGOLInQmnUspzg2Zc"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "registration successful"
+              },
+              "email": {
+                "type": "string",
+                "example": "test@ukr.net"
+              },
+              "name": {
+                "type": "string",
+                "example": "Test Test"
+              },
+              "avatarURL": {
+                "type": "string",
+                "example": "//www.gravatar.com/avatar/d52b22726b15ebbb067e17b9a8e614d1"
+              },
+              "shoppingList": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -249,53 +341,13 @@
         "xml": {
           "name": "user"
         }
-      },
-      "LogoutUser": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string",
-            "example": "648097f9726c301049d2eeb1"
-          }
-        },
-        "xml": {
-          "name": "user"
-        }
-      }
-    },
-    "requestBodies": {
-      "Pet": {
-        "description": "Pet object that needs to be added to the store",
-        "content": {
-          "application/json": {
-            "schema": {}
-          }
-        }
-      },
-      "UserArray": {
-        "description": "List of user object",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "array",
-              "items": {}
-            }
-          }
-        }
       }
     },
     "securitySchemes": {
-      "petstore_auth": {
-        "type": "oauth2",
-        "flows": {
-          "implicit": {
-            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
-            "scopes": {
-              "write:pets": "modify pets in your account",
-              "read:pets": "read your pets"
-            }
-          }
-        }
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       },
       "api_key": {
         "type": "apiKey",
