@@ -22,8 +22,8 @@ app.use(express.static("public"));
 
 app.use("/users", authRouter);
 app.use("/categories", categoriesRouter);
-app.use("/api/recipes", recipesRouter);
-app.use("/api//ingredients", ingredientsRouter);
+app.use("/recipes", recipesRouter);
+app.use("/ingredients", ingredientsRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
