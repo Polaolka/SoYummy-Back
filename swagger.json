@@ -350,6 +350,138 @@
           }
         }
       }
+    },
+    "/recipes/:id": {
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about one recipe",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getRecipeById",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OneRecipe"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/main-page": {
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information for main-page",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getMainPage",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {}
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/category/:category": {
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information for main-page",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getRecByCategory",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {}
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -372,6 +504,91 @@
         },
         "xml": {
           "name": "user"
+        }
+      },
+      "OneRecipe": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6462a8f74c3d0ddd28897fb8"
+          },
+          "title": {
+            "type": "string",
+            "example": "Mediterranean Pasta Salad"
+          },
+          "category": {
+            "type": "string",
+            "example": "Seafood"
+          },
+          "area": {
+            "type": "string",
+            "example": "Italian"
+          },
+          "instructions": {
+            "type": "string",
+            "example": "Bring a large saucepan of salted water to the boil..."
+          },
+          "description": {
+            "type": "string",
+            "example": "A salad made with pasta, vegetables..."
+          },
+          "thumb": {
+            "type": "string",
+            "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+          },
+          "preview": {
+            "type": "string",
+            "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+          },
+          "time": {
+            "type": "string",
+            "example": "27"
+          },
+          "youtube": {
+            "type": "string",
+            "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "640c2dd963a319ea671e3724"
+                },
+                "measure": {
+                  "type": "string",
+                  "example": "200 g"
+                }
+              }
+            }
+          },
+          "owner": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "6481ae94d9b2746f712cd11f"
+              }
+            }
+          },
+          "popularity": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "xml": {
+          "name": "recipes"
         }
       },
       "AllRecipes": {

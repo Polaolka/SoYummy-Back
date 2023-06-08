@@ -19,6 +19,7 @@ cloudinary.config({
 const recipeStorage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
+    console.log(file);
 
     if (!file) {
       throw RequestError(404, 'Image Not found');
@@ -43,7 +44,7 @@ const recipeStorage = new CloudinaryStorage({
 const avaStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
-
+    console.log(file);
     if (!file) {
       throw RequestError(404, 'Image Not found');
     }
@@ -70,3 +71,4 @@ const uploadRecipe = multer({ storage: recipeStorage });
 module.exports = { uploadAva, uploadRecipe };
 
 
+// /recipes/category/:category
