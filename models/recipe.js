@@ -13,23 +13,41 @@ const recipeSchema = new Schema({
   time: { type: String },
   youtube: { type: String },
   tags: { type: Array },
-  ingredients: { type: Array },
+  ingredients: [
+    {
+      id: {
+        type: Schema.Types.ObjectId,
+        ref: "ingredient",
+      },
+    },
+  ],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
 });
 
 recipeSchema.post("save", handleMongooseError);
 
-// const addSchema = Joi.object({
-//   // name: Joi.string().min(3).max(30).required(),
-// });
+const addNewSchema = Joi.object({
+  title: Joi.string().required().min(5),
+  category: Joi.string().required().min(5),
+  instructions: Joi.string().required().min(5),
+  description: Joi.string().required().min(5),
+  thumb: Joi.string(),
+  preview: Joi.string(),
+  time: Joi.string().required(),
+  ingredients: Joi.array().required(),
+});
 
-// const schemas = {
-//   addSchema,
-// };
+const schemas = {
+  addNewSchema,
+};
 
 const Recipe = model("recipe", recipeSchema);
 
 module.exports = {
-  //   schemas,
+  schemas,
   Recipe,
 };
 
