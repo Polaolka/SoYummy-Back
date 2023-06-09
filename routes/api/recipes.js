@@ -10,12 +10,16 @@ const { isValidId } = require("../../middlewares");
 
 const router = express.Router();
 
+router.get("/", authenticate, ctrlWrapper(ctrl.getAll));
+
 router.get("/main-page", authenticate, ctrlWrapper(ctrl.mainPage));
-router.get(
-  "/category/:category",
-  authenticate,
-  ctrlWrapper(ctrl.getByCategory)
-);
+
+router.get( "/category/:category", authenticate, ctrlWrapper(ctrl.getByCategory));
+
+router.get("/popular-recipe", authenticate, ctrlWrapper(ctrl.getPopularRecipes));
+
+router.post("/add-popularity", authenticate, ctrlWrapper(ctrl.addPopulatityArr));
+
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.getById));
 
 // router.post(

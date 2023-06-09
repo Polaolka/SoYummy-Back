@@ -1,7 +1,7 @@
 const { Recipe } = require("../../models/recipe");
 
 const getAll = async (req, res) => {
-
+console.log("+");
   const conditions = {};
 //   const { page = 1, limit = 10 } = req.query;
 //   const skip = (page - 1) * limit;

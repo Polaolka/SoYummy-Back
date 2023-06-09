@@ -23,7 +23,7 @@ router.post("/logout", authenticate, ctrlWrapper(ctrl.logout));
 router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
 // avatar
-router.patch('/avatar', authenticate, uploadAva.single('avatar'), ctrl.updateAvatar);
+router.patch('/avatar', authenticate, uploadAva.single('avatar'), ctrlWrapper(ctrl.updateAvatar));
 
 // router.post('/user', authenticate, upload.single('recipeImg'), ctrl.addAvatar);
 // router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar));
