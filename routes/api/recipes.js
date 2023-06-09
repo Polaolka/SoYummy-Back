@@ -18,7 +18,11 @@ router.get( "/category/:category", authenticate, ctrlWrapper(ctrl.getByCategory)
 
 router.get("/popular-recipe", authenticate, ctrlWrapper(ctrl.getPopularRecipes));
 
-router.post("/add-popularity", authenticate, ctrlWrapper(ctrl.addPopulatityArr));
+router.post("/favorite", authenticate, ctrlWrapper(ctrl.addToFavRecipes));
+
+router.post("/favorite/remove", authenticate, ctrlWrapper(ctrl.removeFromFavRecipes));
+
+// router.post("/add-popularity", authenticate, ctrlWrapper(ctrl.addPopulatityArr));
 
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.getById));
 

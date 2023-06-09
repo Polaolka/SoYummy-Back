@@ -31,27 +31,6 @@ const calculatePopularity = () => {
       $limit: 4,
     },
   ]
-  // [
-  //   {
-  //     $project: {
-  //       _id: 1,
-  //       title: 1,
-  //       description: 1,
-  //       thumb: 1,
-  //       preview: 1,
-  //       popularity: { $size: "$popularity" },
-  //     },
-  //   },
-  //   {
-  //     $sort: {
-  //       popularity: -1,
-  //     },
-  //   },
-  //   {
-  //     $limit: 4,
-  //   },
-  // ];
-
   return pipeline;
 };
 module.exports = calculatePopularity;

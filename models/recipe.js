@@ -14,10 +14,12 @@ const recipeSchema = new Schema({
   youtube: { type: String },
   tags: { type: Array },
   ingredients: { type: Array },
+  popularity:  { type: Array },
 });
 
 recipeSchema.post("save", handleMongooseError);
 
+recipeSchema.set("versionKey", false);
 // const addSchema = Joi.object({
 //   // name: Joi.string().min(3).max(30).required(),
 // });
