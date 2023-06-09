@@ -6,6 +6,9 @@ const getAll = require("./getAll");
 const addPopulatityArr = require("./addPopulatityArr");
 const addToFavRecipes = require("./addToFavRecipes");
 const removeFromFavRecipes = require("./removeFromFavRecipes");
+const addRecipe = require("./addRecipe");
+const getOwnRecipe = require("./getOwnRecipe");
+const deleteOne = require("./deleteOne");
 
 module.exports = {
   getById,
@@ -16,4 +19,7 @@ module.exports = {
   addPopulatityArr,
   addToFavRecipes,
   removeFromFavRecipes,
+  addRecipe,
+  getOwnRecipe,
+  deleteOne,
 };
