@@ -57,9 +57,21 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const shoppingSchema = Joi.object({
+  ingredientId: Joi.string().required(),
+  amount: Joi.string().required(),
+  measure: Joi.string().required(),
+});
+
+const shoppingRemoveSchema = Joi.object({
+  ingredientId: Joi.string().required(),
+});
+
 const schemas = {
   registerSchema,
   loginSchema,
+  shoppingSchema,
+  shoppingRemoveSchema
 };
 
 const User = model("user", userSchema);

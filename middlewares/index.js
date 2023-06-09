@@ -14,5 +14,5 @@ module.exports = {
   authenticate,
   validateSubscrBody,
   uploadAva,
-  uploadRecipe
+  uploadRecipe,
 };

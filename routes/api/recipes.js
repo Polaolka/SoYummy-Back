@@ -2,7 +2,7 @@ const express = require("express");
 
 const ctrl = require("../../controllers/recipes");
 
-const { validateBody, authenticate } = require("../../middlewares");
+const { validateBody, authenticate, uploadRecipe } = require("../../middlewares");
 
 const { ctrlWrapper } = require("../../helpers");
 

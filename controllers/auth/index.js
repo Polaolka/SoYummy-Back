@@ -6,6 +6,8 @@ const updateSubscription = require("./addToShoppingList");
 const updateAvatar = require("./updateAvatar");
 const verifyEmail = require("./verifyEmail");
 const addToShoppingList = require("./addToShoppingList");
+const removeShopingItem = require("./removeShopingItem");
+const getShoppingList = require("./getShoppingList");
 
 module.exports = {
   register,
@@ -16,4 +18,6 @@ module.exports = {
   updateAvatar,
   verifyEmail,
   addToShoppingList,
+  removeShopingItem,
+  getShoppingList
 };

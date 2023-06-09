@@ -3,6 +3,7 @@ const ctrlWrapper = require("./ctrlWrapper");
 const handleMongooseError = require("./handleMongooseError");
 const sendEmail = require("./sendEmail");
 const calculatePopularity = require("./calculatePopularity");
+const resizeIMG = require("./resizeIMG");
 
 
 module.exports = {
@@ -10,5 +11,6 @@ module.exports = {
   ctrlWrapper,
   handleMongooseError,
   sendEmail,
-  calculatePopularity
+  calculatePopularity,
+  resizeIMG
 };

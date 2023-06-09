@@ -1,5 +1,5 @@
 const { User } = require("../../models/user");
-
+const { isValidObjectId } = require('mongoose')
 const { RequestError } = require("../../helpers");
 
 const addToShoppingList = async (req, res) => {
@@ -7,9 +7,10 @@ const addToShoppingList = async (req, res) => {
   const { ingredientId, amount = '', measure = '' } = req.body
 
   if (
-    !isValidObjectId(ingredientId) 
+    !isValidObjectId(ingredientId) || 
+    !isValidObjectId(_id)
   ) {
-    throw HttpError(400)
+    throw RequestError(400)
   }
 
   const ingrItem = {

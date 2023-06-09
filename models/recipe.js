@@ -31,7 +31,9 @@ const recipeSchema = new Schema({
 recipeSchema.post("save", handleMongooseError);
 
 recipeSchema.set("versionKey", false);
-
+// const addSchema = Joi.object({
+//   // name: Joi.string().min(3).max(30).required(),
+// });
 const addNewSchema = Joi.object({
   title: Joi.string().required().min(5),
   category: Joi.string().required().min(5),

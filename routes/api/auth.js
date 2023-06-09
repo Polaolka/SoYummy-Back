@@ -25,6 +25,13 @@ router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 // avatar
 router.patch('/avatar', authenticate, uploadAva.single('avatar'), ctrlWrapper(ctrl.updateAvatar));
 
+router.patch('/shopping-list', authenticate, validateBody(schemas.shoppingSchema), ctrlWrapper(ctrl.addToShoppingList));
+
+router.patch('/shopping-list/remove', authenticate, validateBody(schemas.shoppingRemoveSchema), ctrlWrapper(ctrl.removeShopingItem));
+
+router.get('/shopping-list', authenticate, ctrlWrapper(ctrl.getShoppingList));
+
+
 // router.post('/user', authenticate, upload.single('recipeImg'), ctrl.addAvatar);
 // router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar));
 

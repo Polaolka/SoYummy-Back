@@ -12,11 +12,12 @@ const removeFromFavRecipes = async (req, res) => {
   if (!recipeObject.popularity) {
     recipeObject.popularity = [];
   }
-
-  const index = recipeObject.popularity.findIndex((item) => {
-    item.id === userId;
-});
-
+  const index = recipeObject.popularity.findIndex((item) =>
+    item.id.equals(userId)
+  );
+  if (index === -1) {
+    throw new RequestError(404, "Not found");
+  }
   if (index !== -1) {
     recipeObject.popularity.splice(index, 1);
   }
