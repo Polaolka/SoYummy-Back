@@ -32,7 +32,7 @@ router.get(
 
 router.get("/favorite", authenticate, ctrlWrapper(ctrl.getFavoruteRecipes));
 
-router.post("/favorite", authenticate, ctrlWrapper(ctrl.addToFavRecipes));
+router.post("/favorite/add", authenticate, ctrlWrapper(ctrl.addToFavRecipes));
 
 router.post("/favorite/remove", authenticate, ctrlWrapper(ctrl.removeFromFavRecipes));
 
