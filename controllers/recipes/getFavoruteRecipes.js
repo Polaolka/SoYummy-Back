@@ -1,19 +1,28 @@
 const { Recipe } = require("../../models/recipe");
 
+const getFavoruteRecipes = async (req, res) => {
+  const { _id } = req.user; 
 
-const getFavoruteRecipes= async (req, res) => {
-    const { _id } = req.user; // Ідентифікатор користувача
-    // const { recipes } = req.body; // Масив об'єктів рецептів
-    const allRecipes = await Recipe.find({});
-    console.log(_id);
+  const allRecipes = await Recipe.find({});
+  const { page = 1, limit = 1 } = req.query;
+  const skip = (page - 1) * limit;
 
-  
-    const favoriteRecipes = allRecipes.filter(recipe => {
-      const hasPopularity = recipe.popularity.some(item => _id.equals(item.id));
-      return hasPopularity;
-    });
-  console.log(favoriteRecipes);
-    res.json({ code: 200, message: 'success', favoriteRecipes });
-  };
-  
-  module.exports = getFavoruteRecipes ;
+  // const favoriteRecipes = allRecipes.filter((recipe) => {
+  //   const hasPopularity = recipe.popularity.some((item) => _id.equals(item.id));
+  //   return hasPopularity;
+  // });
+
+  // const count = await Recipe.countDocuments({
+  //   "popularity.id": _id,
+  // });
+
+  const favoriteRecipes = await Recipe.find({
+    "popularity.id": _id,
+  })
+    .skip(skip)
+    .limit(limit);
+
+  res.json(favoriteRecipes);
+};
+
+module.exports = getFavoruteRecipes;
