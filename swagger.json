@@ -308,7 +308,7 @@
       }
     },
     "/users/shopping-list/add": {
-      "post": {
+      "patch": {
         "tags": [
           "shopping-list"
         ],
@@ -367,7 +367,7 @@
       }
     },
     "/users/shopping-list/remove": {
-      "post": {
+      "patch": {
         "tags": [
           "shopping-list"
         ],
