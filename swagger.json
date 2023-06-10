@@ -32,6 +32,10 @@
     {
       "name": "recipes",
       "description": "Operations about recipes"
+    },
+    {
+      "name": "shopping-list",
+      "description": "Operations about shopping-list"
     }
   ],
   "paths": {
@@ -239,6 +243,172 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UpdateAvatar"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/users/shopping-list": {
+      "get": {
+        "tags": [
+          "shopping-list"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about shopping-list",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getShopping-list",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShoppingList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/users/shopping-list/add": {
+      "post": {
+        "tags": [
+          "shopping-list"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Add item in shopping-list",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "ingredien info to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddShoppingList"
+              }
+            }
+          }
+        },
+        "description": "",
+        "operationId": "addToShoppingList",
+        "responses": {
+          "201": {
+            "description": "ingredient added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddShoppingList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/users/shopping-list/remove": {
+      "post": {
+        "tags": [
+          "shopping-list"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Remove item from shopping-list",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "ingredien info to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemoveShoppingList"
+              }
+            }
+          }
+        },
+        "description": "",
+        "operationId": "removeFromShoppingList",
+        "responses": {
+          "201": {
+            "description": "ingredient added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveShoppingListRes"
                 }
               }
             }
@@ -482,6 +652,181 @@
           }
         }
       }
+    },
+    "/recipes/favorite": {
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about favorite recipes by user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getFavRecByUser",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favrecipes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Already in fav recipes"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/favorite/add": {
+      "post": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Adds favorite recipes by user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "must be _id recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFavRec"
+              }
+            }
+          }
+        },
+        "description": "",
+        "operationId": "addFavRecByUser",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favrecipes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Already in fav recipes"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/favorite/remove": {
+      "post": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Removes favorite recipes by user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "must be _id recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddFavRec"
+              }
+            }
+          }
+        },
+        "description": "",
+        "operationId": "removeFavRecByUser",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favrecipes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Already in fav recipes"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -583,7 +928,13 @@
           "popularity": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "6480ab5ea9564dc51344fd20"
+                }
+              }
             }
           }
         },
@@ -794,12 +1145,182 @@
           "name": "categories"
         }
       },
+      "ShoppingList": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "6462a8f74c3d0ddd28897fb8"
+            }
+          }
+        },
+        "xml": {
+          "name": "shopping-list"
+        }
+      },
+      "AddShoppingList": {
+        "type": "object",
+        "properties": {
+          "ingredientId": {
+            "type": "string",
+            "example": "640c2dd963a319ea671e365c"
+          },
+          "amount": {
+            "type": "string",
+            "example": "200"
+          },
+          "measure": {
+            "type": "string",
+            "example": "g"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "RemoveShoppingList": {
+        "type": "object",
+        "properties": {
+          "ingredientId": {
+            "type": "string",
+            "example": "640c2dd963a319ea671e365c"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "RemoveShoppingListRes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "ingredientId": {
+              "type": "string",
+              "example": "640c2dd963a319ea671e365c"
+            },
+            "amount": {
+              "type": "string",
+              "example": "200"
+            },
+            "measure": {
+              "type": "string",
+              "example": "g"
+            }
+          }
+        },
+        "xml": {
+          "name": "categorie"
+        }
+      },
+      "Favrecipes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "6462a8f74c3d0ddd28897fb8"
+            },
+            "title": {
+              "type": "string",
+              "example": "Mediterranean Pasta Salad"
+            },
+            "category": {
+              "type": "string",
+              "example": "Seafood"
+            },
+            "area": {
+              "type": "string",
+              "example": "Italian"
+            },
+            "instructions": {
+              "type": "string",
+              "example": "Bring a large saucepan of salted water to the boil..."
+            },
+            "description": {
+              "type": "string",
+              "example": "A salad made with pasta, vegetables..."
+            },
+            "thumb": {
+              "type": "string",
+              "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+            },
+            "preview": {
+              "type": "string",
+              "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+            },
+            "time": {
+              "type": "string",
+              "example": "27"
+            },
+            "youtube": {
+              "type": "string",
+              "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ingredients": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "640c2dd963a319ea671e3724"
+                  },
+                  "measure": {
+                    "type": "string",
+                    "example": "200 g"
+                  }
+                }
+              }
+            },
+            "owner": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "6481ae94d9b2746f712cd11f"
+                }
+              }
+            },
+            "popularity": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "categories"
+        }
+      },
       "UpdateAvatar": {
         "type": "object",
         "properties": {
           "avatarURL": {
             "type": "string",
             "example": "https://res.cloudinary.com/dj5smkin6/image/upload/v1686237332/avatars/6481ae94d9b2746f712cd11f_ice-cream.jpg.jpg"
+          }
+        },
+        "xml": {
+          "name": "user"
+        }
+      },
+      "AddFavRec": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6462a8f74c3d0ddd28897fb8"
           }
         },
         "xml": {

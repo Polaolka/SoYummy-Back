@@ -27,7 +27,7 @@ const addToShoppingList = async (req, res) => {
   if (!result) {
     throw RequestError(404, "Not found");
   }
-  res.status(200).json(ingrItem);
+  res.status(201).json(ingrItem);
 
 };
 
