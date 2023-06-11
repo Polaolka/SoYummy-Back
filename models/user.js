@@ -63,7 +63,7 @@ const addShoppingListItem = Joi.object({
 })
 
 const removeShoppingListItem = Joi.object({
-  recipeId: Joi.array().items(Joi.objectId()).required(),
+  ingredientId: Joi.objectId().required(),
 })
 
 const schemas = {

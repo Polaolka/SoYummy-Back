@@ -27,7 +27,7 @@ router.patch('/avatar', authenticate, uploadAva.single('avatar'), ctrlWrapper(ct
 
 router.patch('/shopping-list/add', authenticate, validateBody(schemas.addShoppingListItem), ctrlWrapper(ctrl.addToShoppingList));
 
-router.patch('/shopping-list/remove', authenticate, validateBody(schemas.shoppingRemoveSchema), ctrlWrapper(ctrl.removeShopingItem));
+router.patch('/shopping-list/remove', authenticate, validateBody(schemas.removeShoppingListItem), ctrlWrapper(ctrl.removeShopingItem));
 
 router.get('/shopping-list', authenticate, ctrlWrapper(ctrl.getShoppingList));
 
