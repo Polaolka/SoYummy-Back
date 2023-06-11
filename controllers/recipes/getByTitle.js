@@ -8,7 +8,12 @@ const getByTitle = async (req, res) => {
     throw RequestError(400, "Title parameter is required");
   }
 
-  const regex = new RegExp(title, "i");
+  const words = title
+    .split(" ")
+    .map((word) => `(?=.*${word})`)
+    .join("");
+
+  const regex = new RegExp(`.*${title}.*`, "i");
 
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
