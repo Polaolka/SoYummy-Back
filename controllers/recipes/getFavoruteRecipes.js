@@ -7,14 +7,9 @@ const getFavoruteRecipes = async (req, res) => {
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
 
-  // const favoriteRecipes = allRecipes.filter((recipe) => {
-  //   const hasPopularity = recipe.popularity.some((item) => _id.equals(item.id));
-  //   return hasPopularity;
-  // });
-
-  // const count = await Recipe.countDocuments({
-  //   "popularity.id": _id,
-  // });
+  const count = await Recipe.countDocuments({
+    "popularity.id": _id,
+  });
 
   const favoriteRecipes = await Recipe.find({
     "popularity.id": _id,
@@ -22,7 +17,7 @@ const getFavoruteRecipes = async (req, res) => {
     .skip(skip)
     .limit(limit);
 
-  res.json(favoriteRecipes);
+  res.json({favoriteRecipes, total: count});
 };
 
 module.exports = getFavoruteRecipes;
