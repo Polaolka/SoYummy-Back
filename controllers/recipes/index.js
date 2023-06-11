@@ -10,6 +10,7 @@ const addRecipe = require("./addRecipe");
 const getOwnRecipe = require("./getOwnRecipe");
 const deleteOne = require("./deleteOne");
 const getFavoruteRecipes = require("./getFavoruteRecipes");
+const getByTitle = require("./getByTitle");
 
 module.exports = {
   getById,
@@ -23,5 +24,6 @@ module.exports = {
   addRecipe,
   getOwnRecipe,
   deleteOne,
-  getFavoruteRecipes
+  getFavoruteRecipes,
+  getByTitle
 };

@@ -52,6 +52,8 @@ router.post(
 
 router.delete("/:id", authenticate, isValidId, ctrlWrapper(ctrl.deleteOne));
 
+router.get("/title", authenticate, ctrlWrapper(ctrl.getByTitle));
+
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.getById));
 
 // router.post(
