@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
-const Joi = require("joi");
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -30,16 +31,14 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    shoppingList: {
-      type: Array,
-      default: [],
-    },
-    // daysInApp: {
-    //   type: Number,
-    //   default: null,
-    // }
-
-
+    shoppingList: [
+      {
+        ingredientId: { type: Schema.Types.ObjectId, ref: 'Ingredient' },
+        recipeId: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+        measure: [{ type: String }],
+        image: { type: String },
+      }
+    ],
   },
   { versionKey: false, timestamps: true }
 );
@@ -57,21 +56,21 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
-const shoppingSchema = Joi.object({
-  ingredientId: Joi.string().required(),
-  amount: Joi.string().required(),
-  measure: Joi.string().required(),
-});
+const addShoppingListItem = Joi.object({
+  ingredientId: Joi.objectId().required(),
+  recipeId: Joi.objectId().required(),
+  measure: Joi.string().allow(null, ''),
+})
 
-const shoppingRemoveSchema = Joi.object({
-  ingredientId: Joi.string().required(),
-});
+const removeShoppingListItem = Joi.object({
+  recipeId: Joi.array().items(Joi.objectId()).required(),
+})
 
 const schemas = {
   registerSchema,
   loginSchema,
-  shoppingSchema,
-  shoppingRemoveSchema
+  addShoppingListItem,
+  removeShoppingListItem
 };
 
 const User = model("user", userSchema);

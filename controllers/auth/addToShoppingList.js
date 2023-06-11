@@ -1,33 +1,48 @@
 const { User } = require("../../models/user");
-const { isValidObjectId } = require('mongoose')
 const { RequestError } = require("../../helpers");
+const { Ingredient } = require("../../models/ingredients");
 
 const addToShoppingList = async (req, res) => {
-  const { _id } = req.user;
-  const { ingredientId, amount = '', measure = '' } = req.body
 
-  if (
-    !isValidObjectId(ingredientId) || 
-    !isValidObjectId(_id)
-  ) {
-    throw RequestError(400)
+  const { _id: userId } = req.user;
+  const { ingredientId, recipeId, measure } = req.body;
+
+  const ingredient = await Ingredient.findById(ingredientId);
+
+  if (!ingredient) {
+    throw RequestError(400, "Controller: Invalid ingredientId");
   }
 
-  const ingrItem = {
-    ingredientId,
-    amount,
-    measure,
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw RequestError(404, "User not found");
   }
 
-  const { shoppingList } = await User.findById(_id)
-  shoppingList.unshift(ingrItem)
+  const existingItem = user.shoppingList.find(
+    (item) => item.ingredientId.toString() === ingredientId
+  );
 
-  const result = await User.findByIdAndUpdate(_id, { shoppingList }, { new: true });
+  if (existingItem) {
+    existingItem.measure.push(measure);
+    existingItem.recipeId.push(recipeId);
+  } else {
+    const newShoppingListItem = {
+      ingredientId,
+      recipeId: [recipeId],
+      measure: [measure],
+      image: ingredient.img,
+    };
+    user.shoppingList.push(newShoppingListItem);
+  }
+
+  const result = await user.save();
 
   if (!result) {
-    throw RequestError(404, "Not found");
+    throw RequestError(400, "Bad Request");
   }
-  res.status(201).json(ingrItem);
+
+  res.status(200).json(result.shoppingList);
 
 };
 
