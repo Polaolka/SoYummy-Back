@@ -36,6 +36,10 @@
     {
       "name": "shopping-list",
       "description": "Operations about shopping-list"
+    },
+    {
+      "name": "search",
+      "description": "Search operations"
     }
   ],
   "paths": {
@@ -839,6 +843,156 @@
           }
         }
       }
+    },
+    "/recipes/title": {
+      "get": {
+        "tags": [
+          "search"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Searching by title",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "limit",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "description": "title",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "searchByTitle",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponce"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/ingredient": {
+      "get": {
+        "tags": [
+          "search"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Searching by ingredient",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "page",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "limit",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ingredient",
+            "description": "ingredient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "searchByIngredient",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponce"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1430,6 +1584,24 @@
         },
         "xml": {
           "name": "user"
+        }
+      },
+      "SearchResponce": {
+        "type": "object",
+        "properties": {
+          "ownRecipes": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "total": {
+            "type": "string",
+            "example": "7"
+          }
+        },
+        "xml": {
+          "name": "cearch"
         }
       }
     },
