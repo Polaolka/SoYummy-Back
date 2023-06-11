@@ -340,7 +340,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AddShoppingList"
+                "$ref": "#/components/schemas/ShoppingList"
               }
             }
           }
@@ -412,7 +412,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RemoveShoppingListRes"
+                  "$ref": "#/components/schemas/ShoppingList"
                 }
               }
             }
@@ -1316,9 +1316,28 @@
         "items": {
           "type": "object",
           "properties": {
-            "id": {
+            "_id": {
               "type": "string",
               "example": "6462a8f74c3d0ddd28897fb8"
+            },
+            "ingredientId": {
+              "type": "string",
+              "example": "640c2dd963a319ea671e3724"
+            },
+            "recipeId": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "measure": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "image": {
+              "type": "string"
             }
           }
         },
@@ -1333,13 +1352,13 @@
             "type": "string",
             "example": "640c2dd963a319ea671e365c"
           },
-          "amount": {
+          "recipeId": {
             "type": "string",
-            "example": "200"
+            "example": "640c2dd963a319ea671e365c"
           },
           "measure": {
             "type": "string",
-            "example": "g"
+            "example": "200 g"
           }
         },
         "xml": {
