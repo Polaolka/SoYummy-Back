@@ -3,17 +3,14 @@ const gravatar = require("gravatar");
 
 const addRecipe = async (req, res) => {
   const { _id: owner, email } = req.user;
-  const { body } = req;
-
-  console.log(8888888888);
-  console.log(body);
+  const { body, file } = req;
 
   if (!body.thumb) {
-    body.thumb = gravatar.url(email);
+    body.thumb = file ? file.path : gravatar.url(email);
   }
 
   if (!body.preview) {
-    body.preview = gravatar.url(email);
+    body.preview = file ? file.path : gravatar.url(email);;
   }
 
   const result = await Recipe.create({ ...body, owner });

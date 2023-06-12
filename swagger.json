@@ -416,7 +416,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ShoppingList"
+                  "$ref": "#/components/schemas/RemoveShoppingListRes"
                 }
               }
             }
@@ -1640,22 +1640,31 @@
         }
       },
       "RemoveShoppingListRes": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "ingredientId": {
-              "type": "string",
-              "example": "640c2dd963a319ea671e365c"
-            },
-            "amount": {
-              "type": "string",
-              "example": "200"
-            },
-            "measure": {
-              "type": "string",
-              "example": "g"
-            }
+        "type": "object",
+        "properties": {
+          "ingredientId": {
+            "type": "string",
+            "example": "640c2dd963a319ea671e365c"
+          },
+          "recipeId": {
+            "type": "string",
+            "example": "200"
+          },
+          "measure": {
+            "type": "string",
+            "example": "g"
+          },
+          "name": {
+            "type": "string",
+            "example": "g"
+          },
+          "image": {
+            "type": "string",
+            "example": "g"
+          },
+          "_id": {
+            "type": "string",
+            "example": "640c2dd963a319ea671e365c"
           }
         },
         "xml": {
