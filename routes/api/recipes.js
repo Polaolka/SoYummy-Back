@@ -29,7 +29,7 @@ router.get(
 );
 
 router.get(
-  "/popular-recipe",
+  "/popular-recipes",
   authenticate,
   ctrlWrapper(ctrl.getPopularRecipes)
 );
