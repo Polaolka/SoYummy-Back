@@ -18,15 +18,22 @@ const getByIngredient = async (req, res) => {
     throw RequestError(400, "Bad request");
   }
 
-  const ingredientObjectIds = ingredientIds.map((id) => mongoose.Types.ObjectId(id));
+  const ingredientObjectIds = ingredientIds.map((id) =>
+    mongoose.Types.ObjectId(id)
+  );
 
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
 
-  const total = await Recipe.countDocuments({ ingredients: { $elemMatch: { id: { $in: ingredientObjectIds } } } });
-  const recipes = await Recipe.find({ ingredients: { $elemMatch: { id: { $in: ingredientObjectIds } } } }).skip(skip).limit(limit);
-;
-
+  const total = await Recipe.countDocuments({
+    ingredients: { $elemMatch: { id: { $in: ingredientObjectIds } } },
+  });
+  const recipes = await Recipe.find({
+    ingredients: { $elemMatch: { id: { $in: ingredientObjectIds } } },
+  })
+    .populate("ingredients.id")
+    .skip(skip)
+    .limit(limit);
   if (recipes.length === 0) {
     throw RequestError(404, "Not found");
   }

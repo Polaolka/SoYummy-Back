@@ -5,6 +5,9 @@ const addRecipe = async (req, res) => {
   const { _id: owner, email } = req.user;
   const { body } = req;
 
+  console.log(8888888888);
+  console.log(body);
+
   if (!body.thumb) {
     body.thumb = gravatar.url(email);
   }

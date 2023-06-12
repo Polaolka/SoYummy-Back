@@ -20,7 +20,8 @@ const getByTitle = async (req, res) => {
   const count = await Recipe.countDocuments({ title: regex });
   const response = await Recipe.find({ title: regex }, "-createdAt -updatedAt")
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .populate("ingredients.id");
 
   res.status(200).json({ response, total: count });
 

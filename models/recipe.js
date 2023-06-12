@@ -13,13 +13,15 @@ const recipeSchema = new Schema({
   time: { type: String },
   youtube: { type: String },
   tags: { type: Array },
-  popularity:  { type: Array },
+  popularity: { type: Array },
   ingredients: [
     {
+      _id: false,
       id: {
         type: Schema.Types.ObjectId,
         ref: "ingredient",
       },
+      measure: { type: String },
     },
   ],
   owner: {
@@ -31,18 +33,17 @@ const recipeSchema = new Schema({
 recipeSchema.post("save", handleMongooseError);
 
 recipeSchema.set("versionKey", false);
-// const addSchema = Joi.object({
-//   // name: Joi.string().min(3).max(30).required(),
-// });
+
 const addNewSchema = Joi.object({
-  title: Joi.string().required().min(5),
-  category: Joi.string().required().min(5),
-  instructions: Joi.string().required().min(5),
-  description: Joi.string().required().min(5),
+  title: Joi.string().required().min(2),
+  category: Joi.string().required().min(2),
+  instructions: Joi.string().required().min(2),
+  description: Joi.string().required().min(2),
   thumb: Joi.string(),
   preview: Joi.string(),
   time: Joi.string().required(),
   ingredients: Joi.array().required(),
+  recipeIMG: Joi.string(),
 });
 
 const schemas = {
@@ -95,3 +96,8 @@ module.exports = {
 //     "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg",
 //   youtube: "https://www.youtube.com/watch?v=e52IL8zYmaE",
 //   tags: ["Pasta", "Baking"],-
+
+[
+  { id: "640c2dd963a319ea671e36d7", measure: "250g" },
+  { id: "640c2dd963a319ea671e367e", measure: "125g" },
+];

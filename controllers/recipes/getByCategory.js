@@ -8,7 +8,7 @@ const getByCategory = async (req, res) => {
   const respons = await Recipe.find({ category }, null, {
     skip,
     limit,
-  });
+  }).populate("ingredients.id");
 
   if (!respons) {
     res.status(404).json({ message: "Not found" });

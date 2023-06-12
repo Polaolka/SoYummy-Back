@@ -2,7 +2,11 @@ const express = require("express");
 
 const ctrl = require("../../controllers/recipes");
 
-const { validateBody, authenticate, uploadRecipe } = require("../../middlewares");
+const {
+  validateBody,
+  authenticate,
+  uploadRecipe,
+} = require("../../middlewares");
 
 const { ctrlWrapper } = require("../../helpers");
 
@@ -34,7 +38,11 @@ router.get("/favorite", authenticate, ctrlWrapper(ctrl.getFavoruteRecipes));
 
 router.post("/favorite/add", authenticate, ctrlWrapper(ctrl.addToFavRecipes));
 
-router.post("/favorite/remove", authenticate, ctrlWrapper(ctrl.removeFromFavRecipes));
+router.post(
+  "/favorite/remove",
+  authenticate,
+  ctrlWrapper(ctrl.removeFromFavRecipes)
+);
 
 // router.post("/add-popularity", authenticate, ctrlWrapper(ctrl.addPopulatityArr));
 router.post(
@@ -46,7 +54,8 @@ router.post(
 router.post(
   "/add-new",
   authenticate,
-  validateBody(schemas.addNewSchema),
+  uploadRecipe.single("recipeIMG"),
+  // validateBody(schemas.addNewSchema),
   ctrlWrapper(ctrl.addRecipe)
 );
 

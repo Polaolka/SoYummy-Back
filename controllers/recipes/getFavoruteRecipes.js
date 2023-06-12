@@ -1,7 +1,7 @@
 const { Recipe } = require("../../models/recipe");
 
 const getFavoruteRecipes = async (req, res) => {
-  const { _id } = req.user; 
+  const { _id } = req.user;
 
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
@@ -14,9 +14,10 @@ const getFavoruteRecipes = async (req, res) => {
     "popularity.id": _id,
   })
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .populate("ingredients.id");
 
-  res.json({favoriteRecipes, total: count});
+  res.json({ favoriteRecipes, total: count });
 };
 
 module.exports = getFavoruteRecipes;
