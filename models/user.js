@@ -21,7 +21,7 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: [true, "Set name"],
-      minlength: 3,
+      minlength: 2,
     },
     token: {
       type: String,

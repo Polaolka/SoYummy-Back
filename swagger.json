@@ -1317,87 +1317,96 @@
         }
       },
       "AllRecipes": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "example": "6462a8f74c3d0ddd28897fb8"
-            },
-            "title": {
-              "type": "string",
-              "example": "Mediterranean Pasta Salad"
-            },
-            "category": {
-              "type": "string",
-              "example": "Seafood"
-            },
-            "area": {
-              "type": "string",
-              "example": "Italian"
-            },
-            "instructions": {
-              "type": "string",
-              "example": "Bring a large saucepan of salted water to the boil..."
-            },
-            "description": {
-              "type": "string",
-              "example": "A salad made with pasta, vegetables..."
-            },
-            "thumb": {
-              "type": "string",
-              "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
-            },
-            "preview": {
-              "type": "string",
-              "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
-            },
-            "time": {
-              "type": "string",
-              "example": "27"
-            },
-            "youtube": {
-              "type": "string",
-              "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
-            },
-            "tags": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "ingredients": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "example": "640c2dd963a319ea671e3724"
-                  },
-                  "measure": {
-                    "type": "string",
-                    "example": "200 g"
+        "type": "object",
+        "properties": {
+          "respons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "6462a8f74c3d0ddd28897fb8"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Mediterranean Pasta Salad"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Seafood"
+                },
+                "area": {
+                  "type": "string",
+                  "example": "Italian"
+                },
+                "instructions": {
+                  "type": "string",
+                  "example": "Bring a large saucepan of salted water to the boil..."
+                },
+                "description": {
+                  "type": "string",
+                  "example": "A salad made with pasta, vegetables..."
+                },
+                "thumb": {
+                  "type": "string",
+                  "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+                },
+                "preview": {
+                  "type": "string",
+                  "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+                },
+                "time": {
+                  "type": "string",
+                  "example": "27"
+                },
+                "youtube": {
+                  "type": "string",
+                  "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "ingredients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "640c2dd963a319ea671e3724"
+                      },
+                      "measure": {
+                        "type": "string",
+                        "example": "200 g"
+                      }
+                    }
+                  }
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6481ae94d9b2746f712cd11f"
+                    }
+                  }
+                },
+                "popularity": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
                   }
                 }
               }
-            },
-            "owner": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "example": "6481ae94d9b2746f712cd11f"
-                }
-              }
-            },
-            "popularity": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
             }
+          },
+          "total": {
+            "type": "string",
+            "example": "7"
           }
         },
         "xml": {
