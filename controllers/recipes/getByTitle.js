@@ -18,14 +18,14 @@ const getByTitle = async (req, res) => {
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
   const count = await Recipe.countDocuments({ title: regex });
-  const response = await Recipe.find({ title: regex }, "-createdAt -updatedAt")
+  const recipes = await Recipe.find({ title: regex }, "-createdAt -updatedAt")
     .skip(skip)
     .limit(limit)
     .populate("ingredients.id");
 
-  res.status(200).json({ response, total: count });
+  res.status(200).json({ recipes, total: count });
 
-  if (!response) {
+  if (!recipes) {
     throw RequestError(404, "Not found");
   }
 };
