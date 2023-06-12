@@ -40,6 +40,7 @@ const userSchema = new Schema(
         image: { type: String },
       }
     ],
+    tenDayFlag: { type: Boolean, default: false }
   },
   { versionKey: false, timestamps: true }
 );
