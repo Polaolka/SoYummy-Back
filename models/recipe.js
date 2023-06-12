@@ -43,7 +43,7 @@ const addNewSchema = Joi.object({
   preview: Joi.string(),
   time: Joi.string().required(),
   ingredients: Joi.array().required(),
-  recipeIMG: Joi.string(),
+  recipeIMG: Joi.object(),
 });
 
 const schemas = {
