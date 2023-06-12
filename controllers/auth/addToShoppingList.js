@@ -29,6 +29,7 @@ const addToShoppingList = async (req, res) => {
   } else {
     const newShoppingListItem = {
       ingredientId,
+      name: ingredient.name,
       recipeId: [recipeId],
       measure: [measure],
       image: ingredient.img,

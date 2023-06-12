@@ -14,6 +14,8 @@ const router = express.Router();
 
 router.get("/list", authenticate, ctrlWrapper(ctrl.getAll));
 
+router.get("/name", authenticate, validateBody(schemas.getSchema), ctrlWrapper(ctrl.getByName));
+
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.findById));
 
 // router.post(

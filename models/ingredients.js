@@ -21,12 +21,12 @@ const ingredientsSchema = new Schema(
 
 ingredientsSchema.post("ingredient", handleMongooseError);
 
-const addSchema = Joi.object({
-  //   name: Joi.string().min(3).max(30).required(),
+const getSchema = Joi.object({
+    name: Joi.string().min(2).required(),
 });
 
 const schemas = {
-  addSchema,
+  getSchema,
 };
 
 const Ingredient = model("ingredient", ingredientsSchema);

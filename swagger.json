@@ -1046,6 +1046,63 @@
         }
       }
     },
+    "/ingredients/name": {
+      "get": {
+        "tags": [
+          "ingredients"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about ingrediets by name",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "beare"
+            }
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getIngredientsByName",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ingrediets"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/ingredients/:id": {
       "get": {
         "tags": [
@@ -1488,6 +1545,9 @@
               }
             },
             "image": {
+              "type": "string"
+            },
+            "name": {
               "type": "string"
             }
           }
