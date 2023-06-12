@@ -13,6 +13,8 @@ const removeShopingItem = async (req, res) => {
   const { shoppingList } = await User.findById(_id);
 
   const index = shoppingList.findIndex((item) => item.ingredientId.toString() === ingredientId.toString());
+  const shoppingItemRemove = shoppingList[index];
+  console.log(shoppingItemRemove);
 
   if (index === -1) {
     throw RequestError(404, "Not found");
@@ -35,7 +37,7 @@ const removeShopingItem = async (req, res) => {
 
   // const { shoppingList } = await User.findById(_id);
 
-  res.status(200).json(shoppingList);
+  res.status(200).json(shoppingItemRemove);
 };
 
 module.exports = removeShopingItem;
