@@ -10,7 +10,7 @@ const addRecipe = async (req, res) => {
   }
 
   if (!body.preview) {
-    body.preview = file ? file.path : gravatar.url(email);;
+    body.preview = file ? file.path : gravatar.url(email);
   }
 
   const result = await Recipe.create({ ...body, owner });
