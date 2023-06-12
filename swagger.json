@@ -998,10 +998,10 @@
         }
       }
     },
-    "/ingrediets": {
+    "/ingredients": {
       "get": {
         "tags": [
-          "ingrediets"
+          "ingredients"
         ],
         "security": [
           {
@@ -1046,10 +1046,10 @@
         }
       }
     },
-    "/ingrediets/:id": {
+    "/ingredients/:id": {
       "get": {
         "tags": [
-          "ingrediets"
+          "ingredients"
         ],
         "security": [
           {
