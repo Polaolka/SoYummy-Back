@@ -40,6 +40,10 @@
     {
       "name": "search",
       "description": "Search operations"
+    },
+    {
+      "name": "ingredients",
+      "description": "Ingredients operations"
     }
   ],
   "paths": {
@@ -993,6 +997,102 @@
           }
         }
       }
+    },
+    "/ingrediets": {
+      "get": {
+        "tags": [
+          "ingrediets"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about ingrediets",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getIngredients",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ingrediets"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/ingrediets/:id": {
+      "get": {
+        "tags": [
+          "ingrediets"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about ingrediet by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getIngredientDyId",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ingrediet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1290,6 +1390,57 @@
         },
         "xml": {
           "name": "user"
+        }
+      },
+      "Ingrediets": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "640c2dd963a319ea671e365b"
+            },
+            "name": {
+              "type": "string",
+              "example": "Chicken"
+            },
+            "desc": {
+              "type": "string",
+              "example": "The chicken is a type of domesticated fowl, a subspecies..."
+            },
+            "img": {
+              "type": "string",
+              "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678564123/rw8pn3541bmukb8d3mio.png"
+            }
+          }
+        },
+        "xml": {
+          "name": "ingrediets"
+        }
+      },
+      "Ingrediet": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "640c2dd963a319ea671e365b"
+          },
+          "name": {
+            "type": "string",
+            "example": "Chicken"
+          },
+          "desc": {
+            "type": "string",
+            "example": "The chicken is a type of domesticated fowl, a subspecies..."
+          },
+          "img": {
+            "type": "string",
+            "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678564123/rw8pn3541bmukb8d3mio.png"
+          }
+        },
+        "xml": {
+          "name": "ingrediets"
         }
       },
       "Categories": {

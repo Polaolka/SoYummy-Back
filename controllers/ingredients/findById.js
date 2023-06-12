@@ -8,6 +8,6 @@ const findById = async (req, res) => {
   const respons = await Ingredient.findById(id);
   console.log(respons);
 
-  //   res.status(200).json(respons);
+    res.status(200).json(respons);
 };
 module.exports = findById;
