@@ -55,7 +55,7 @@ router.post(
   "/add-new",
   authenticate,
   uploadRecipe.single("recipeIMG"),
-  validateBody(schemas.addNewSchema),
+  // validateBody(schemas.addNewSchema),
   ctrlWrapper(ctrl.addRecipe)
 );
 

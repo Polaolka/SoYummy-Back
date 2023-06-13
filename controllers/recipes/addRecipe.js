@@ -5,17 +5,25 @@ const addRecipe = async (req, res) => {
   const { _id: owner, email } = req.user;
   const { body, file } = req;
 
-  console.log(body);
+  const { title, description, category, time, ingredients, instructions } =
+    body;
 
-  if (!body.thumb) {
-    body.thumb = file ? file.path : gravatar.url(email);
-  }
+  const thumb = file ? file.path : gravatar.url(email);
 
-  if (!body.preview) {
-    body.preview = file ? file.path : gravatar.url(email);
-  }
+  const preview = file ? file.path : gravatar.url(email);
 
-  const result = await Recipe.create({ ...body, owner });
+  const data = {
+    title,
+    description,
+    category,
+    time,
+    ingredients: JSON.parse(ingredients),
+    instructions,
+    thumb,
+    preview,
+  };
+
+  const result = await Recipe.create({ ...data, owner });
 
   res.status(201).json(result);
 };
