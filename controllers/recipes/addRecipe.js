@@ -5,6 +5,8 @@ const addRecipe = async (req, res) => {
   const { _id: owner, email } = req.user;
   const { body, file } = req;
 
+  console.log(body);
+
   if (!body.thumb) {
     body.thumb = file ? file.path : gravatar.url(email);
   }
