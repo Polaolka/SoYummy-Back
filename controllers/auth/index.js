@@ -3,7 +3,7 @@ const login = require("./login");
 const getCurrent = require("./getCurrent");
 const logout = require("./logout");
 const updateSubscription = require("./addToShoppingList");
-const updateAvatar = require("./updateAvatar");
+const updateUser = require("./updateUser");
 const verifyEmail = require("./verifyEmail");
 const addToShoppingList = require("./addToShoppingList");
 const removeShopingItem = require("./removeShopingItem");
@@ -15,7 +15,7 @@ module.exports = {
   getCurrent,
   logout,
   updateSubscription,
-  updateAvatar,
+  updateUser,
   verifyEmail,
   addToShoppingList,
   removeShopingItem,
