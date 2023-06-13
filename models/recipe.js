@@ -2,47 +2,35 @@ const { Schema, model } = require("mongoose");
 const { handleMongooseError } = require("../helpers");
 const Joi = require("joi");
 
-const recipeSchema = new Schema(
-  {
-    title: { type: String },
-    category: { type: String },
-    area: { type: String },
-    instructions: {
-      type: String,
-      required: true,
-      set: (arr) => arr.join("\r\n"),
-    },
-    description: { type: String },
-    thumb: { type: String },
-    preview: { type: String },
-    time: { type: String },
-    youtube: { type: String },
-    tags: { type: Array },
-    popularity: { type: Array },
-    ingredients: [
-      {
-        _id: false,
-        id: {
-          type: String,
-          ref: "ingredient",
-        },
-        measure: { type: String },
-      },
-    ],
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-    },
+const recipeSchema = new Schema({
+  title: { type: String },
+  category: { type: String },
+  area: { type: String },
+  instructions: {
+    type: String,
   },
-  {
-    toJSON: {
-      virtuals: true,
-      transform: (doc, ret) => {
-        delete ret._id;
+  description: { type: String },
+  thumb: { type: String },
+  preview: { type: String },
+  time: { type: String },
+  youtube: { type: String },
+  tags: { type: Array },
+  popularity: { type: Array },
+  ingredients: [
+    {
+      _id: false,
+      id: {
+        type: Schema.Types.ObjectId,
+        ref: "ingredient",
       },
-    }, // преобразование ответа без квадратных скобок
-  }
-);
+      measure: { type: String },
+    },
+  ],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
+});
 
 recipeSchema.post("save", handleMongooseError);
 
