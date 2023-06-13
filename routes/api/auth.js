@@ -22,8 +22,8 @@ router.post("/logout", authenticate, ctrlWrapper(ctrl.logout));
 //  current
 router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));
 
-// avatar
-router.patch('/avatar', authenticate, uploadAva.single('avatar'), ctrlWrapper(ctrl.updateAvatar));
+// update user`s name or avatar
+router.patch('/update-user', authenticate, uploadAva.single('avatar'), ctrlWrapper(ctrl.updateUser));
 
 router.patch('/shopping-list/add', authenticate, validateBody(schemas.addShoppingListItem), ctrlWrapper(ctrl.addToShoppingList));
 
