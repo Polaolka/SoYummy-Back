@@ -1,4 +1,4 @@
-const { Ingredient } = require("../../models/ingredients");
+const { Ingredient } = require("../../models/ingredient");
 const { RequestError } = require("../../helpers");
 
 const getByName = async (req, res) => {

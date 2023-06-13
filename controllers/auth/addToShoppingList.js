@@ -1,6 +1,6 @@
 const { User } = require("../../models/user");
 const { RequestError } = require("../../helpers");
-const { Ingredient } = require("../../models/ingredients");
+const { Ingredient } = require("../../models/ingredient");
 
 const addToShoppingList = async (req, res) => {
 

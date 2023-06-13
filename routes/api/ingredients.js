@@ -4,7 +4,7 @@ const ctrl = require("../../controllers/ingredients");
 
 const { validateBody, authenticate } = require("../../middlewares");
 
-const { schemas } = require("../../models/ingredients");
+const { schemas } = require("../../models/ingredient");
 
 const { ctrlWrapper } = require("../../helpers");
 

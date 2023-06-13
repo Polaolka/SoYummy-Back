@@ -1,5 +1,5 @@
 const { Recipe } = require("../../models/recipe");
-const { Ingredient } = require("../../models/ingredients");
+const { Ingredient } = require("../../models/ingredient");
 const { RequestError } = require("../../helpers");
 
 const getAll = async (req, res) => {
