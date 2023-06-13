@@ -21,7 +21,7 @@ const deleteOne = async (req, res) => {
 
   await Recipe.findByIdAndDelete(id);
 
-  res.status(200).json({ message: `contact id:${id} deleted` });
+  res.status(200).json({ message: `Recipe id:${id} deleted` });
 };
 
 module.exports = deleteOne;
