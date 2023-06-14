@@ -13,7 +13,7 @@ const getByName = async (req, res) => {
     .map((word) => `(?=.*${word})`)
     .join("");
 
-  const regex = new RegExp(`.*${name}.*`, "i");
+  const regex = new RegExp(`^${name}`, "i");
 
   const count = await Ingredient.countDocuments({ name: regex });
   const response = await Ingredient.find({ name: regex }, "-createdAt -updatedAt");
