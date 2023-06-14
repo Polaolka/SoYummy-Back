@@ -4,6 +4,7 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const passRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,16}$/;
 
 const userSchema = new Schema(
   {
@@ -22,6 +23,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Set name"],
       minlength: 2,
+      maxlength: 16,
     },
     token: {
       type: String,
@@ -48,14 +50,14 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
-  name: Joi.string().min(3).required(),
+  name: Joi.string().min(1).max(16).required(),
   email: Joi.string().pattern(emailRegex).required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().min(6).max(16).pattern(passRegex).required(),
 });
 
 const loginSchema = Joi.object({
   email: Joi.string().pattern(emailRegex).required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().min(6).max(16).required(),
 });
 
 const addShoppingListItem = Joi.object({

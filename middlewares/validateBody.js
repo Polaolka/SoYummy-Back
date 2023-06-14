@@ -9,7 +9,7 @@ const validateBody = (schema) => {
     }
     if (error) {
       res.status(400).json({
-        message: `missing required ${error.details[0].context.key} field`,
+        message: `incorrect data for required ${error.details[0].context.key} field`,
       });
       return;
     }
