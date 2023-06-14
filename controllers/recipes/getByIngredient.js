@@ -21,15 +21,10 @@ const getByIngredient = async (req, res) => {
     throw RequestError(400, "Bad request");
   }
 
-  const ingredientObjectIds = ingredientIds.map((id) => ObjectId(id._id));
-
   const ingredientStringIds = ingredientIds.map((id) => id._id.toString());
-
 
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
-
-
 
   const totalStr = await Recipe.countDocuments({
     ingredients: {
