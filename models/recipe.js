@@ -20,7 +20,7 @@ const recipeSchema = new Schema({
     {
       _id: false,
       id: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: "ingredient",
       },
       measure: { type: String },

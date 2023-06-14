@@ -25,61 +25,36 @@ const getByIngredient = async (req, res) => {
 
   const ingredientStringIds = ingredientIds.map((id) => id._id.toString());
 
-  console.log(ingredientObjectIds);
-  // console.log(ingredientStringIds);
 
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
 
-  const total = await Recipe.countDocuments({
+
+
+  const totalStr = await Recipe.countDocuments({
     ingredients: {
       $elemMatch: {
-        id: { $in: ingredientObjectIds },
+        id: { $in: ingredientStringIds },
       },
     },
   });
 
-  const recipes = await Recipe.find({
+  const recipesStr = await Recipe.find({
     ingredients: {
       $elemMatch: {
-        id: { $in: ingredientObjectIds },
+        id: { $in: ingredientStringIds },
       },
     },
   })
-  .populate("ingredients.id")
-  .skip(skip)
-  .limit(limit);
+    .populate("ingredients.id")
+    .skip(skip)
+    .limit(limit);
 
-
-  // const totalStr = await Recipe.countDocuments({
-  //   ingredients: {
-  //     $elemMatch: {
-  //       id: { $in: ingredientStringIds },
-  //     },
-  //   },
-  // });
-
-  // const recipesStr = await Recipe.find({
-  //   ingredients: {
-  //     $elemMatch: {
-  //       id: { $in: ingredientStringIds },
-  //     },
-  //   },
-  // })
-    // .populate("ingredients.id")
-    // .skip(skip)
-    // .limit(limit);
-
-    console.log(total);
-    console.log(recipes);
-    // console.log(totalStr);
-    // console.log(recipesStr);
-
-  if (recipes.length === 0) {
+  if (recipesStr.length === 0) {
     throw RequestError(404, "Not found");
   }
 
-  res.status(200).json({ recipes, total });
+  res.status(200).json({ recipes: recipesStr, total: totalStr });
 };
 
 module.exports = getByIngredient;
