@@ -11,13 +11,15 @@ const getByCategory = async (req, res) => {
   const response = await Recipe.find({ category: categoryRegex }, null, {
     skip,
     limit,
-  }).populate("ingredients.id");
+  })
+    .sort({ createdAt: -1 })
+    .populate("ingredients.id");
 
   if (!response) {
     res.status(404).json({ message: "Not found" });
   }
 
-  res.status(200).json({response, total: count });
+  res.status(200).json({ response, total: count });
 };
 
 module.exports = getByCategory;
