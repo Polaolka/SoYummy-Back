@@ -3,7 +3,9 @@ const { Category } = require("../../models/categories");
 
 const mainPage = async (req, res) => {
   const category = await Category.find({});
-  const recipe = await Recipe.find({}).populate("ingredients.id");
+  const recipe = await Recipe.find({})
+    .sort({ createdAt: -1 })
+    .populate("ingredients.id");
 
   const response = {};
 

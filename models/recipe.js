@@ -30,6 +30,10 @@ const recipeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user",
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 recipeSchema.post("save", handleMongooseError);

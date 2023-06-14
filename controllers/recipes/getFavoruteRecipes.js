@@ -15,6 +15,7 @@ const getFavoruteRecipes = async (req, res) => {
   })
     .skip(skip)
     .limit(limit)
+    .sort({ createdAt: -1 })
     .populate("ingredients.id");
 
   res.json({ favoriteRecipes, total: count });
