@@ -28,9 +28,7 @@ const addToFavRecipes = async (req, res) => {
   }
 
   recipeObject.popularity.push({ id: userId });
-  await recipeObject.save();
-  // console.log(recipeObject);
-  
+  await recipeObject.save();  
 
   const result = await Recipe.findByIdAndUpdate(_id, { $set: recipeObject }, { new: true });
 

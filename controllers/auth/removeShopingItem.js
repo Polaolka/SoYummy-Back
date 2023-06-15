@@ -35,8 +35,6 @@ const removeShopingItem = async (req, res) => {
     throw RequestError(404, "Not found");
   }
 
-  // const { shoppingList } = await User.findById(_id);
-
   res.status(200).json(shoppingItemRemove);
 };
 

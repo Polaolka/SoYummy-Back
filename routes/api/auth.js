@@ -31,8 +31,4 @@ router.patch('/shopping-list/remove', authenticate, validateBody(schemas.removeS
 
 router.get('/shopping-list', authenticate, ctrlWrapper(ctrl.getShoppingList));
 
-
-// router.post('/user', authenticate, upload.single('recipeImg'), ctrl.addAvatar);
-// router.patch("/avatars", authenticate, upload.single("avatar"), ctrlWrapper(ctrl.updateAvatar));
-
 module.exports = router;

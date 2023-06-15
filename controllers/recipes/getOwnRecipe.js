@@ -5,7 +5,6 @@ const getOwnRecipe = async (req, res) => {
   const { page = 1, limit = 1 } = req.query;
   const skip = (page - 1) * limit;
   const count = await Recipe.countDocuments({ owner: _id });
-  // const count = await Recipe.estimatedDocumentCount({ owner: _id });
   const result = await Recipe.find({ owner: _id }, "-createdAt -updatedAt")
     .skip(skip)
     .limit(limit)

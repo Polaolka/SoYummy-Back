@@ -9,7 +9,7 @@ async function resizeIMG(path, width, height) {
 
   // Завантаження зменшеного зображення на Cloudinary
   const result = await cloudinary.uploader.upload_stream(
-    { folder: 'recipeIMG', allowed_formats: ['jpg', 'png'] },
+    { folder: 'recipeIMG', allowed_formats: ['jpg', 'png', 'webP'] },
     (error, result) => {
       if (error) {
         throw new Error(error.message);

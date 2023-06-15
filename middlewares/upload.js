@@ -58,7 +58,7 @@ const avaStorage = new CloudinaryStorage({
     }
     return {
       folder: folder,
-      allowed_formats: ['jpg', 'png'],
+      allowed_formats: ['jpg', 'png', 'webp'],
       public_id: `${id}_${file.originalname}`,
       transformation: [{ width: 100, height: 100, crop: 'fill' }],
     };
@@ -69,6 +69,3 @@ const uploadAva = multer({ storage: avaStorage });
 const uploadRecipe = multer({ storage: recipeStorage });
 
 module.exports = { uploadAva, uploadRecipe };
-
-
-// /recipes/category/:category

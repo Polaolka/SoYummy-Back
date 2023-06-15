@@ -6,8 +6,6 @@ const getAll = async (req, res) => {
   const { path } = req.route;
   const { filter } = req.query;
 
-  // const { page, skip, limit } = req.paginatedResponse;
-
   const searchParams = {};
 
   if (filter?.title) searchParams.title = filter.title;
@@ -23,15 +21,11 @@ const getAll = async (req, res) => {
     searchParams.ingredients = ingredients;
   }
 
-  // console.log(searchParams);
-
   const response = await Recipe.find(
     searchParams,
     "-createdAt -updatedAt"
-    // {skip, limit}
   ).populate("ingredients.id");
 
-  // console.log(response);
   res.status(200).json(response);
 
   if (!response) {

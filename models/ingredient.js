@@ -16,7 +16,6 @@ const ingredientsSchema = new Schema(
       type: String,
     },
   }
-  //   { versionKey: false, timestamps: true }
 );
 
 ingredientsSchema.post("ingredient", handleMongooseError);

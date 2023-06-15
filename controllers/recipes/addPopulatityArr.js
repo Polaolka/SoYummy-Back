@@ -2,10 +2,10 @@ const { Recipe } = require("../../models/recipe");
 
 const addPopulatityArr = async (req, res) => {
   try {
-    // Отримати всі об'єкти, де властивість popularity відсутня
+    // Отримуємо всі об'єкти, де властивість popularity відсутня
     const objectsWithoutPopularity = await Recipe.find({ popularity: { $exists: false } });
 
-    // Пройтися по кожному об'єкту і додати властивість popularity з пустим масивом
+    // Проходимось по кожному об'єкту і додаєм властивість popularity з пустим масивом
     const updatedObjects = await Promise.all(
       objectsWithoutPopularity.map(async (object) => {
         object.popularity = [];

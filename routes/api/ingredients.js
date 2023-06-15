@@ -18,13 +18,4 @@ router.get("/name", authenticate, ctrlWrapper(ctrl.getByName));
 
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.findById));
 
-// router.post(
-//   "/",
-//   authenticate,
-//   validateBody(schemas.addSchema),
-//   ctrlWrapper(ctrl.add)
-// );
-
-// router.delete("/:id", authenticate, isValidId, ctrlWrapper(ctrl.removeById));
-
 module.exports = router;
