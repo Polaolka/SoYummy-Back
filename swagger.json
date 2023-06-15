@@ -219,12 +219,12 @@
         }
       }
     },
-    "/users/avatar": {
+    "/users/update-user": {
       "patch": {
         "tags": [
           "user"
         ],
-        "summary": "This route updates user avatar",
+        "summary": "This route updates user info",
         "description": "This can only be done by the logged in user.",
         "operationId": "updateUserAvatar",
         "parameters": [],
@@ -238,6 +238,9 @@
                   "avatar": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "name": {
+                    "type": "string"
                   }
                 }
               }
@@ -344,7 +347,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ShoppingList"
+                "$ref": "#/components/schemas/AddShoppingList"
               }
             }
           }
@@ -357,7 +360,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddShoppingList"
+                  "$ref": "#/components/schemas/ShoppingList"
                 }
               }
             }
@@ -481,8 +484,8 @@
         }
       }
     },
-    "/recipes": {
-      "get": {
+    "/recipes/add-new": {
+      "post": {
         "tags": [
           "recipes"
         ],
@@ -491,7 +494,7 @@
             "bearerAuth": []
           }
         ],
-        "summary": "Information about all recipes",
+        "summary": "Add new recipe",
         "parameters": [
           {
             "in": "header",
@@ -505,14 +508,62 @@
           }
         ],
         "description": "",
-        "operationId": "getAllRecipes",
+        "operationId": "addNewRecipe",
+        "requestBody": {
+          "description": "Add new recipe in app SoYummy",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "recipeIMG": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "instructions": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "50"
+                  },
+                  "time": {
+                    "type": "string"
+                  },
+                  "ingredients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "640c2dd963a319ea671e36d7"
+                        },
+                        "measure": {
+                          "type": "string",
+                          "example": "250g"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
-            "description": "Information found",
+          "201": {
+            "description": "Recipe created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AllRecipes"
+                  "$ref": "#/components/schemas/OneNewRecipe"
                 }
               }
             }
@@ -529,7 +580,7 @@
         }
       }
     },
-    "/recipes/:id": {
+    "/recipes/{recipeId}": {
       "get": {
         "tags": [
           "recipes"
@@ -549,6 +600,15 @@
             "schema": {
               "type": "string",
               "format": "bearer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "recipeId",
+            "description": "recipe id",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -625,7 +685,7 @@
         }
       }
     },
-    "/recipes/category/:category": {
+    "/recipes/category/{category}": {
       "get": {
         "tags": [
           "recipes"
@@ -645,6 +705,15 @@
             "schema": {
               "type": "string",
               "format": "bearer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "category",
+            "description": "category name",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -666,57 +735,6 @@
           },
           "404": {
             "description": "Not found"
-          },
-          "500": {
-            "description": "Server error"
-          }
-        }
-      }
-    },
-    "/recipes/favorite": {
-      "get": {
-        "tags": [
-          "recipes"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "summary": "Information about favorite recipes by user",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
-        "description": "",
-        "operationId": "getFavRecByUser",
-        "responses": {
-          "200": {
-            "description": "Information found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Favrecipes"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing header with authorization token"
-          },
-          "404": {
-            "description": "Bad request"
-          },
-          "409": {
-            "description": "Already in fav recipes"
           },
           "500": {
             "description": "Server error"
@@ -749,6 +767,57 @@
         ],
         "description": "",
         "operationId": "getPopularRecipes",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Favrecipes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Bad request"
+          },
+          "409": {
+            "description": "Already in fav recipes"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/favorite": {
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Information about favorite recipes by user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getFavRecByUser",
         "responses": {
           "200": {
             "description": "Information found",
@@ -892,6 +961,111 @@
           },
           "409": {
             "description": "Already in fav recipes"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/own-recipes": {
+      "get": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Searching by title",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "getOwnRecipes",
+        "responses": {
+          "200": {
+            "description": "Information found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponce"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/recipes/{id}": {
+      "delete": {
+        "tags": [
+          "recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Delete own recipe",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "securitySchemes",
+            "description": "Bearer Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "bearer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "recipe id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "",
+        "operationId": "deleteOwnRecipe",
+        "responses": {
+          "200": {
+            "description": "Recipe deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipeDeleted"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
           },
           "500": {
             "description": "Server error"
@@ -1225,6 +1399,85 @@
           "name": "user"
         }
       },
+      "OneNewRecipe": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6462a8f74c3d0ddd28897fb8"
+          },
+          "title": {
+            "type": "string",
+            "example": "Mediterranean Pasta Salad"
+          },
+          "category": {
+            "type": "string",
+            "example": "Seafood"
+          },
+          "area": {
+            "type": "string",
+            "example": "Italian"
+          },
+          "instructions": {
+            "type": "string",
+            "example": "Bring a large saucepan of salted water to the boil..."
+          },
+          "description": {
+            "type": "string",
+            "example": "A salad made with pasta, vegetables..."
+          },
+          "thumb": {
+            "type": "string",
+            "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+          },
+          "preview": {
+            "type": "string",
+            "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+          },
+          "time": {
+            "type": "string",
+            "example": "27"
+          },
+          "youtube": {
+            "type": "string",
+            "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "640c2dd963a319ea671e3724"
+                },
+                "measure": {
+                  "type": "string",
+                  "example": "200 g"
+                }
+              }
+            }
+          },
+          "owner": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "6481ae94d9b2746f712cd11f"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "recipes"
+        }
+      },
       "OneRecipe": {
         "type": "object",
         "properties": {
@@ -1319,7 +1572,7 @@
       "AllRecipes": {
         "type": "object",
         "properties": {
-          "respons": {
+          "response": {
             "type": "array",
             "items": {
               "type": "object",
@@ -1901,6 +2154,18 @@
         },
         "xml": {
           "name": "cearch"
+        }
+      },
+      "RecipeDeleted": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Recipe id:648a0d2455e64d1bd34b6508 deleted"
+          }
+        },
+        "xml": {
+          "name": "recipe"
         }
       }
     },
