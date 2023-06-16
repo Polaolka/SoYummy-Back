@@ -61,28 +61,67 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
-  name: Joi.string().min(1).max(16).required(),
-  email: Joi.string().pattern(emailRegex).required(),
-  password: Joi.string().min(6).max(16).pattern(passRegex).required(),
+  name: Joi.string().min(1).max(16).required().messages({
+    "string.base": "The name must be a string.",
+    "string.min": "The name must be at least 1.",
+    "string.max": "The name cannot exceed 16.",
+    "any.required": "The name field is required.",
+  }),
+  email: Joi.string().pattern(emailRegex).required().messages({
+    "string.base": "The email must be a string.",
+    "string.pattern": "The email must be a valid email address.",
+    "any.required": "The email field is required.",
+  }),
+  password: Joi.string().min(6).max(16).pattern(passRegex).required().messages({
+    "string.base": "The password must be a string.",
+    "string.min": "The password must be at least 6.",
+    "string.max": "The password cannot exceed 16.",
+    "string.pattern": "The email must be a valid password address.",
+    "any.required": "The password field is required.",
+  }),
 });
 
 const loginSchema = Joi.object({
-  email: Joi.string().pattern(emailRegex).required(),
-  password: Joi.string().min(6).max(16).required(),
+  email: Joi.string().pattern(emailRegex).required().messages({
+    "string.base": "The email must be a string.",
+    "string.pattern": "The email must be a valid email address.",
+    "any.required": "The email field is required.",
+  }),
+  password: Joi.string().min(6).max(16).required().messages({
+    "string.base": "The password must be a string.",
+    "string.min": "The password must be at least 6.",
+    "string.max": "The password cannot exceed 16.",
+    "any.required": "The password field is required.",
+  }),
 });
 
 const addShoppingListItem = Joi.object({
-  ingredientId: Joi.objectId().required(),
-  recipeId: Joi.objectId().required(),
-  measure: Joi.string().allow(null, ""),
+  ingredientId: Joi.objectId().required().messages({
+    "objectId.base": "The ingredientId must be a objectId.",
+    "any.required": "The ingredientId field is required.",
+  }),
+  recipeId: Joi.objectId().required().messages({
+    "objectId.base": "The recipeId must be a objectId.",
+    "any.required": "The recipeId field is required.",
+  }),
+  measure: Joi.string().allow(null, "").messages({
+    "string.base": "The measure must be a string.",
+    "any.required": "The measure field is required.",
+  }),
 });
 
 const removeShoppingListItem = Joi.object({
-  ingredientId: Joi.objectId().required(),
+  ingredientId: Joi.objectId().required().messages({
+    "objectId.base": "The ingredientId must be a objectId.",
+    "any.required": "The ingredientId field is required.",
+  }),
 });
 
 const refreshSchema = Joi.object({
-  refreshToken: Joi.string().required(),
+  refreshToken: Joi.string().required().messages({
+    "string.base": "The refreshToken must be a string.",
+    "any.required": "The refreshToken field is required.",
+  }),
 });
 
 const schemas = {
@@ -90,7 +129,7 @@ const schemas = {
   loginSchema,
   addShoppingListItem,
   removeShoppingListItem,
-  refreshSchema
+  refreshSchema,
 };
 
 const User = model("user", userSchema);

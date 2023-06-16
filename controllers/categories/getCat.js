@@ -1,7 +1,7 @@
 const { Category } = require("../../models/categories");
 
 const getCat = async (req, res) => {
-  const response = await Category.find({});
+  const response = await Category.find({}).sort({ name: 1 });
 
   const sortResponse = response.sort((a, b) => {
     const nameA = a.name.toLowerCase();
