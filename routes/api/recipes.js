@@ -16,63 +16,57 @@ const { schemas } = require("../../models/recipe");
 
 const router = express.Router();
 
-// router.get("/", authenticate, ctrlWrapper(ctrl.getAll));
-
-// рецепти користувача
+// user recipes
 router.get("/own-recipes", authenticate, ctrlWrapper(ctrl.getOwnRecipe));
 
-// головна сторінка
+// Home page
 router.get("/main-page", authenticate, ctrlWrapper(ctrl.mainPage));
 
-// отримання рецептів по категорії
+// receiving recipes by category
 router.get(
   "/category/:category",
   authenticate,
   ctrlWrapper(ctrl.getByCategory)
 );
 
-
-// отримання популярних рецептів
+// getting popular recipes
 router.get(
   "/popular-recipes",
   authenticate,
   ctrlWrapper(ctrl.getPopularRecipes)
 );
 
-// отримання рецептів, які юзер додав в улюблені
+// receiving recipes that the user has added to favorites
 router.get("/favorite", authenticate, ctrlWrapper(ctrl.getFavoruteRecipes));
 
-
-// додавання рецепта в улюблені
+// adding a recipe to favorites
 router.post("/favorite/add", authenticate, ctrlWrapper(ctrl.addToFavRecipes));
 
-// видалення рецепту з улюблених
+// removing a recipe from favorites
 router.post(
   "/favorite/remove",
   authenticate,
   ctrlWrapper(ctrl.removeFromFavRecipes)
 );
 
-// додавання нового рецепту
+// adding a new recipe
 router.post(
   "/add-new",
   authenticate,
   uploadRecipe.single("recipeIMG"),
-  // validateBody(schemas.addNewSchema),
   ctrlWrapper(ctrl.addRecipe)
 );
 
-// видалення рецепту по id
+// deleting a recipe by id
 router.delete("/:id", authenticate, isValidId, ctrlWrapper(ctrl.deleteOne));
 
-
-// пошук рецепта по назві
+// search for a recipe by name
 router.get("/title", authenticate, ctrlWrapper(ctrl.getByTitle));
 
-// пошук рецепта по назві інгредієнта
+// searching for a recipe by ingredient name
 router.get("/ingredient", authenticate, ctrlWrapper(ctrl.getByIngredient));
 
-// рецепт по id
+// prescription by id
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.getById));
 
 module.exports = router;

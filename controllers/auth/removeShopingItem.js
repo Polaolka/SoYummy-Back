@@ -12,7 +12,9 @@ const removeShopingItem = async (req, res) => {
 
   const { shoppingList } = await User.findById(_id);
 
-  const index = shoppingList.findIndex((item) => item.ingredientId.toString() === ingredientId.toString());
+  const index = shoppingList.findIndex(
+    (item) => item.ingredientId.toString() === ingredientId.toString()
+  );
   const shoppingItemRemove = shoppingList[index];
   console.log(shoppingItemRemove);
 
@@ -23,8 +25,6 @@ const removeShopingItem = async (req, res) => {
     shoppingList.splice(index, 1);
   }
 
-  // const result = await User.findByIdAndUpdate(_id, { $pull: { shoppingList: ingredientId } }, { new: true });
-  
   const result = await User.findByIdAndUpdate(
     _id,
     { shoppingList },

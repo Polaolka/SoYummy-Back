@@ -9,13 +9,17 @@ const { RequestError } = require("../../helpers");
 
 function congratulateUser(user) {
   if (!user.tenDayFlag) {
-    const registrationDate = user.createdAt; // Предполагается, что есть поле createdAt, которое хранит дату регистрации пользователя
+    const registrationDate = user.createdAt; // It is assumed that there is a createdAt field that stores the user's registration date
     const currentDate = new Date();
-    const TEN_DAYS_IN_MS = 10 * 24 * 60 * 60 * 1000; 
+    const TEN_DAYS_IN_MS = 10 * 24 * 60 * 60 * 1000;
     if (currentDate - registrationDate >= TEN_DAYS_IN_MS) {
-      console.log('Поздравляем пользователя ' + user.username + ' с 10 днями использования приложения!');
+      console.log(
+        "Поздравляем пользователя " +
+          user.username +
+          " с 10 днями использования приложения!"
+      );
       user.tenDayFlag = true;
-      user.save(); 
+      user.save();
     }
   }
 }
@@ -39,13 +43,17 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "800h" });
-  const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, { expiresIn: "10m" });
-  const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, { expiresIn: "7d" });
+  const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
+    expiresIn: "10m",
+  });
+  const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
+    expiresIn: "7d",
+  });
   await User.findByIdAndUpdate(user._id, { token });
 
   res.json({
     token,
-    accessToken, 
+    accessToken,
     refreshToken,
     user: {
       _id: user._id,

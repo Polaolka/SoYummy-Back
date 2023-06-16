@@ -9,9 +9,7 @@ const getShoppingList = async (req, res) => {
     throw RequestError(400);
   }
 
-  // const { shoppingList } = await User.findById(_id);
-
-   if (!shoppingList) {
+  if (!shoppingList) {
     throw RequestError(404, "Not found");
   }
   res.status(200).json(shoppingList);

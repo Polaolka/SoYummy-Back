@@ -1,21 +1,21 @@
 const sharp = require("sharp");
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require("cloudinary").v2;
 
 async function resizeIMG(path, width, height) {
-  // Зміна розміру зображення за допомогою sharp
-  const resizedImageBuffer = await sharp(path)
-    .resize(width, height)
-    .toBuffer();
+  // Зміна розміру зображення за допомогою sharp(Resize the image for help sharp)
+  const resizedImageBuffer = await sharp(path).resize(width, height).toBuffer();
 
-  // Завантаження зменшеного зображення на Cloudinary
-  const result = await cloudinary.uploader.upload_stream(
-    { folder: 'recipeIMG', allowed_formats: ['jpg', 'png', 'webP'] },
-    (error, result) => {
-      if (error) {
-        throw new Error(error.message);
+  // Завантаження зменшеного зображення на Cloudinary(Changed Image Capture on Cloudinary)
+  const result = await cloudinary.uploader
+    .upload_stream(
+      { folder: "recipeIMG", allowed_formats: ["jpg", "png", "webP"] },
+      (error, result) => {
+        if (error) {
+          throw new Error(error.message);
+        }
       }
-    }
-  ).end(resizedImageBuffer);
+    )
+    .end(resizedImageBuffer);
 
   return result.secure_url;
 }
