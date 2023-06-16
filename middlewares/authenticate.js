@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const { SECRET_KEY } = process.env;
+const { SECRET_KEY, ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
 const { RequestError } = require("../helpers");
 
@@ -14,8 +14,10 @@ const authenticate = async (req, res, next) => {
   }
   try {
     const { id } = jwt.verify(token, SECRET_KEY);
+// const { id } = jwt.verify(token, ACCESS_SECRET_KEY);
     const user = await User.findById(id);
     if (!user || !user.token || user.token !== token) {
+// if (!user || !user.accessToken || user.accessToken !== accessToken) {
       next(RequestError(401));
     }
     req.user = user;

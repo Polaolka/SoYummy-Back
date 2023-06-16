@@ -4,7 +4,7 @@ const router = express.Router();
 
 const ctrl = require("../../controllers/auth");
 
-const { validateBody, authenticate, validateSubscrBody, uploadAva, } = require("../../middlewares");
+const { validateBody, authenticate, uploadAva, } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -18,6 +18,9 @@ router.post( "/login", validateBody(schemas.loginSchema), ctrlWrapper(ctrl.login
 
 // logout
 router.post("/logout", authenticate, ctrlWrapper(ctrl.logout));
+
+// refresh
+router.post("/refresh", validateBody(schemas.refreshSchema), ctrlWrapper(ctrl.refresh));
 
 //  current
 router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent));

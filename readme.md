@@ -1,31 +1,55 @@
-## GoIT Node.js Course Template Homework
+## SOYUMMY - BACK-END
 
-Виконайте форк цього репозиторію для виконання домашніх завдань (2-6)
-Форк створить репозиторій на вашому http://github.com
+**🍍** WELCOME TO SOYUMMY **🍒**
+[life page...](https://AnastasiiaHM.github.io/soyummy-project/)
 
-Додайте ментора до колаборації
+Back-end docs:
+[SWAGGER](https://soyummy-back.onrender.com/api-docs/#/)
 
-Для кожної домашньої роботи створюйте свою гілку.
+BACK-END repo:
+[BACK-END](https://github.com/Eddy-hub19/souyummy_backend)
 
-- hw02
-- hw03
-- hw04
-- hw05
-- hw06
 
-Кожна нова гілка для др повинна робитися з master
+## Project overview
+This project implements the server part of the YourPet application. It is built on Node.js, using the Express.js framework to implement the API and Mongoose to interact with the MongoDB database.
 
-Після того, як ви закінчили виконувати домашнє завдання у своїй гілці, необхідно зробити пулл-реквест (PR). Потім додати ментора для рев'ю коду. Тільки після того, як ментор заапрувить PR, ви можете виконати мердж гілки з домашнім завданням у майстер.
+## Requirements
+Before starting work with the project, make sure that the following tools are installed on your computer:
+- Node.js (version 16 or higher)
 
-Уважно читайте коментарі ментора. Виправте зауваження та зробіть коміт у гілці з домашнім завданням. Зміни підтягнуться у PR автоматично після того, як ви відправите коміт з виправленнями на github
-Після виправлення знову додайте ментора на рев'ю коду.
+## Installation
+1. Clone this repository to your local machine.
+2. Open a terminal and navigate to the root of your project.
+3. Run the `npm install` command to install the project dependencies.
+4. Scripts: - npm start - server start in production mode - npm run start:dev - server start in development mode - npm run lint - run an eslint code check - lint:fix - eslint code check with automatic fix for simple errors
+Server is deployed using [Render.com](https://render.com/)
 
-- При здачі домашньої роботи є посилання на PR
-- JS-код чистий та зрозумілий, для форматування використовується Prettier
+## Configuration
+1. Create an `.env` file in the root of the project.
+2. Specify the necessary environment variables in this file:
+    PORT
+    SECRET_KEY
+    ACCESS_SECRET_KEY
+    REFRESH_SECRET_KEY
+    UKR_NET_PASSWORD
+    UKR_NET_USER
+    BASE_URL
+    CLOUD_NAME
+    CLOUD_API_KEY
+    CLOUD_API_SECRET
 
-### Команди:
 
-- `npm start` &mdash; старт сервера в режимі production
-- `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
-- `npm run lint` &mdash; запустити виконання перевірки коду з eslint, необхідно виконувати перед кожним PR та виправляти всі помилки лінтера
-- `npm lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
+### Developers
+The project was implemented by two back-end developers. Each of us worked on personal tasks as well as joint tasks.
+
+<p float="left">
+  <a href="https://github.com/Polaolka">
+  	<img width="125" src="https://avatars.githubusercontent.com/u/101866764" alt="Olga Polishchuk" border="0">
+   </a>
+  <a href="https://github.com/BogdanYeshchenko">
+    <img width="125" src="https://avatars.githubusercontent.com/u/119247282" alt="Bogdan Yeshchenko" border="0">
+  </a>
+</p>
+
+- [**Olga Polishchuk**: Full-stack developer](https://github.com/Polaolka)
+- [**Bogdan Yeshchenko**: Full-stack developer](https://github.com/BogdanYeshchenko)

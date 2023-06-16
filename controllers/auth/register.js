@@ -37,7 +37,7 @@ const register = async (req, res) => {
   await User.findByIdAndUpdate(newUser._id, { token, accessToken, refreshToken });
 
   res.status(201).json({
-    message: "registration successful",
+    message: "register  successful",
     token,
     accessToken, 
     refreshToken,

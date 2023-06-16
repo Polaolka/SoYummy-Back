@@ -1,5 +1,4 @@
 const multer = require("multer");
-const path = require("path");
 require("dotenv").config();
 
 const cloudinary = require('cloudinary').v2;

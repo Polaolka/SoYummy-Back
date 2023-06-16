@@ -8,6 +8,7 @@ const verifyEmail = require("./verifyEmail");
 const addToShoppingList = require("./addToShoppingList");
 const removeShopingItem = require("./removeShopingItem");
 const getShoppingList = require("./getShoppingList");
+const refresh = require("./refresh");
 
 module.exports = {
   register,
@@ -19,5 +20,6 @@ module.exports = {
   verifyEmail,
   addToShoppingList,
   removeShopingItem,
-  getShoppingList
+  getShoppingList,
+  refresh
 };

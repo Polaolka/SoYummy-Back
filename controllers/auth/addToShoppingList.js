@@ -13,11 +13,8 @@ const addToShoppingList = async (req, res) => {
     throw RequestError(400, "Controller: Invalid ingredientId");
   }
 
-  const user = await User.findById(userId);
 
-  if (!user) {
-    throw RequestError(404, "User not found");
-  }
+  const user = req.user;
 
   const existingItem = user.shoppingList.find(
     (item) => item.ingredientId.toString() === ingredientId
