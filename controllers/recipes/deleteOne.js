@@ -9,7 +9,7 @@ const deleteOne = async (req, res) => {
 
   if (!areEqual) {
     res
-      .status(406)
+      .status(403)
       .json({ message: "It is possible to delete only own recipes" });
     return;
   }
