@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const gravatar = require("gravatar");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const { SECRET_KEY, BASE_URL } = process.env;
+const { SECRET_KEY, BASE_URL, ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
 const { User } = require("../../models/user");
 
@@ -31,11 +31,16 @@ const register = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "800h" });
-  await User.findByIdAndUpdate(newUser._id, { token });
+  const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, { expiresIn: "10m" });
+  const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, { expiresIn: "7d" });
+
+  await User.findByIdAndUpdate(newUser._id, { token, accessToken, refreshToken });
 
   res.status(201).json({
     message: "registration successful",
     token,
+    accessToken, 
+    refreshToken,
     user: {
       _id: newUser._id,
       email: newUser.email,
