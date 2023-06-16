@@ -27,16 +27,16 @@ Server is deployed using [Render.com](https://render.com/)
 ## Configuration
 1. Create an `.env` file in the root of the project.
 2. Specify the necessary environment variables in this file:
-    PORT
-    SECRET_KEY
-    ACCESS_SECRET_KEY
-    REFRESH_SECRET_KEY
-    UKR_NET_PASSWORD
-    UKR_NET_USER
-    BASE_URL
-    CLOUD_NAME
-    CLOUD_API_KEY
-    CLOUD_API_SECRET
+    - __PORT__
+    - __SECRET_KEY__
+    - __ACCESS_SECRET_KEY__
+    - __REFRESH_SECRET_KEY__
+    - __UKR_NET_PASSWORD__
+    - __UKR_NET_USER__
+    - __BASE_URL__
+    - __CLOUD_NAME__
+    - __CLOUD_API_KEY__
+    - __CLOUD_API_SECRET__
 
 
 ### Developers
