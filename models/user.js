@@ -44,10 +44,10 @@ const userSchema = new Schema(
     shoppingList: {
       type: [
         {
-          ingredientIds: { type: Schema.Types.ObjectId, ref: "Ingredient" },
+          ingredientId: { type: Schema.Types.ObjectId, ref: "Ingredient" },
           recipeIds: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
           name: { type: String },
-          measure: [{ type: String }],
+          measures: [{ type: String }],
           image: { type: String },
         },
       ],

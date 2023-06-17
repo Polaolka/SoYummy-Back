@@ -21,14 +21,14 @@ const addToShoppingList = async (req, res) => {
   );
 
   if (existingItem) {
-    existingItem.measure.push(measure);
-    existingItem.recipeId.push(recipeId);
+    existingItem.measures.push(measure);
+    existingItem.recipeIds.push(recipeId);
   } else {
     const newShoppingListItem = {
       ingredientId,
       name: ingredient.name,
-      recipeId: [recipeId],
-      measure: [measure],
+      recipeIds: [recipeId],
+      measures: [measure],
       image: ingredient.img,
     };
     user.shoppingList.push(newShoppingListItem);
