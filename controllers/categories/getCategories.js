@@ -1,6 +1,6 @@
 const { Category } = require("../../models/categories");
 
-const getCat = async (req, res) => {
+const getCategories= async (req, res) => {
   const response = await Category.find({}).sort({ name: 1 });
 
   const sortResponse = response.sort((a, b) => {
@@ -18,4 +18,4 @@ const getCat = async (req, res) => {
   res.status(200).json(sortResponse);
 };
 
-module.exports = getCat;
+module.exports = getCategories;
