@@ -3,10 +3,8 @@ const gravatar = require("gravatar");
 
 const addRecipe = async (req, res) => {
   const { _id: owner, email } = req.user;
-  const { body, file } = req;
-
-  const { title, description, category, time, ingredients, instructions } =
-    body;
+  
+  const {body:{ title, description, category, time, ingredients, instructions }, file} = req
 
   const thumb = file ? file.path : gravatar.url(email);
 

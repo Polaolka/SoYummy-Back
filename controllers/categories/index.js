@@ -1,5 +1,5 @@
-const getCat = require("./getCat");
+const getCategories= require("./getCategories");
 
 module.exports = {
-  getCat,
+  getCategories,
 };

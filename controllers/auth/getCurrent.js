@@ -1,9 +1,7 @@
 const { User } = require("../../models/user");
 
 const getCurrent = async (req, res) => {
-    const { _id } = req.user;
-
-    const {
+    const { _id,
         name,
         email,
         shoppingList,
@@ -11,7 +9,7 @@ const getCurrent = async (req, res) => {
         avatarURL,
         // daysInApp,
         // addedRecipes,
-      } = await User.findById(_id);
+     } = req.user;
 
     const data = {
         _id,

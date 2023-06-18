@@ -69,4 +69,5 @@ router.get("/ingredient", authenticate, ctrlWrapper(ctrl.getByIngredient));
 // prescription by id
 router.get("/:id", authenticate, isValidId, ctrlWrapper(ctrl.getById));
 
+
 module.exports = router;

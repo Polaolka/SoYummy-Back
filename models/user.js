@@ -45,9 +45,9 @@ const userSchema = new Schema(
       type: [
         {
           ingredientId: { type: Schema.Types.ObjectId, ref: "Ingredient" },
-          recipeId: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
+          recipeIds: [{ type: Schema.Types.ObjectId, ref: "Recipe" }],
           name: { type: String },
-          measure: [{ type: String }],
+          measures: [{ type: String }],
           image: { type: String },
         },
       ],

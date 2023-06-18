@@ -52,7 +52,7 @@
         "tags": [
           "user"
         ],
-        "summary": "Create user",
+        "summary": "register",
         "description": "Create a new User in the SoYummy.",
         "operationId": "createUser",
         "parameters": [],
@@ -112,7 +112,7 @@
         },
         "responses": {
           "201": {
-            "description": "successful operation",
+            "description": "successful login",
             "content": {
               "application/json": {
                 "schema": {
@@ -144,18 +144,6 @@
           }
         ],
         "summary": "Logs out current user from the SoYummy",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "logoutUser",
         "responses": {
@@ -182,18 +170,6 @@
           }
         ],
         "summary": "Log In to the system",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "getCurrent",
         "responses": {
@@ -224,6 +200,11 @@
         "tags": [
           "user"
         ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "This route updates user info",
         "description": "This can only be done by the logged in user.",
         "operationId": "updateUserAvatar",
@@ -239,7 +220,7 @@
                     "type": "string",
                     "format": "binary"
                   },
-                  "name": {
+                  "newName": {
                     "type": "string"
                   }
                 }
@@ -253,7 +234,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UpdateAvatar"
+                  "$ref": "#/components/schemas/UpdateUser"
                 }
               }
             }
@@ -281,18 +262,6 @@
           }
         ],
         "summary": "Information about shopping-list",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "getShopping-list",
         "responses": {
@@ -329,18 +298,6 @@
           }
         ],
         "summary": "Add item in shopping-list",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "requestBody": {
           "required": true,
           "description": "ingredien info to add",
@@ -388,21 +345,9 @@
           }
         ],
         "summary": "Remove item from shopping-list",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "requestBody": {
           "required": true,
-          "description": "ingredien info to add",
+          "description": "ingredien info to remove",
           "content": {
             "application/json": {
               "schema": {
@@ -415,7 +360,7 @@
         "operationId": "removeFromShoppingList",
         "responses": {
           "201": {
-            "description": "ingredient added",
+            "description": "ingredient removed",
             "content": {
               "application/json": {
                 "schema": {
@@ -447,18 +392,6 @@
           }
         ],
         "summary": "Information about categories",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "getCategory",
         "responses": {
@@ -495,18 +428,6 @@
           }
         ],
         "summary": "Add new recipe",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "addNewRecipe",
         "requestBody": {
@@ -531,7 +452,7 @@
                   },
                   "description": {
                     "type": "string",
-                    "example": "50"
+                    "example": ""
                   },
                   "time": {
                     "type": "string"
@@ -593,16 +514,6 @@
         "summary": "Information about one recipe",
         "parameters": [
           {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          },
-          {
             "in": "path",
             "name": "recipeId",
             "description": "recipe id",
@@ -648,18 +559,6 @@
           }
         ],
         "summary": "Information for main-page",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "getMainPage",
         "responses": {
@@ -697,16 +596,6 @@
         ],
         "summary": "Get recipes by category",
         "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          },
           {
             "in": "path",
             "name": "category",
@@ -753,18 +642,6 @@
           }
         ],
         "summary": "Information about popular recipes",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "getPopularRecipes",
         "responses": {
@@ -773,7 +650,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Favrecipes"
+                  "$ref": "#/components/schemas/PopularRecipes"
                 }
               }
             }
@@ -804,18 +681,6 @@
           }
         ],
         "summary": "Information about favorite recipes by user",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "getFavRecByUser",
         "responses": {
@@ -855,18 +720,6 @@
           }
         ],
         "summary": "Adds favorite recipes by user",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "requestBody": {
           "required": true,
           "description": "must be _id recipe",
@@ -886,7 +739,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Favrecipes"
+                  "$ref": "#/components/schemas/OneRecipe"
                 }
               }
             }
@@ -917,18 +770,6 @@
           }
         ],
         "summary": "Removes favorite recipes by user",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "requestBody": {
           "required": true,
           "description": "must be _id recipe",
@@ -948,7 +789,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Favrecipes"
+                  "$ref": "#/components/schemas/OneRecipe"
                 }
               }
             }
@@ -979,18 +820,6 @@
           }
         ],
         "summary": "Searching by title",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
         "description": "",
         "operationId": "getOwnRecipes",
         "responses": {
@@ -999,7 +828,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SearchResponce"
+                  "$ref": "#/components/schemas/OwnRecipes"
                 }
               }
             }
@@ -1029,16 +858,6 @@
         "summary": "Delete own recipe",
         "parameters": [
           {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          },
-          {
             "in": "path",
             "name": "id",
             "description": "recipe id",
@@ -1064,6 +883,9 @@
           "400": {
             "description": "Bad request"
           },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
           "404": {
             "description": "Not found"
           },
@@ -1085,16 +907,6 @@
         ],
         "summary": "Searching by title",
         "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          },
           {
             "in": "query",
             "name": "page",
@@ -1161,16 +973,6 @@
         "summary": "Searching by ingredient",
         "parameters": [
           {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          },
-          {
             "in": "query",
             "name": "page",
             "description": "page",
@@ -1223,7 +1025,7 @@
         }
       }
     },
-    "/ingredients": {
+    "/ingredients/list": {
       "get": {
         "tags": [
           "ingredients"
@@ -1233,19 +1035,7 @@
             "bearerAuth": []
           }
         ],
-        "summary": "Information about ingrediets",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "bearer"
-            }
-          }
-        ],
+        "summary": "Information about ingredients",
         "description": "",
         "operationId": "getIngredients",
         "responses": {
@@ -1254,7 +1044,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ingrediets"
+                  "$ref": "#/components/schemas/Ingredients"
                 }
               }
             }
@@ -1281,18 +1071,8 @@
             "bearerAuth": []
           }
         ],
-        "summary": "Information about ingrediets by name",
+        "summary": "Information about ingredients by name",
         "parameters": [
-          {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "beare"
-            }
-          },
           {
             "in": "query",
             "name": "name",
@@ -1311,7 +1091,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ingrediets"
+                  "$ref": "#/components/schemas/Ingredient"
                 }
               }
             }
@@ -1328,7 +1108,7 @@
         }
       }
     },
-    "/ingredients/:id": {
+    "/ingredients/{id}": {
       "get": {
         "tags": [
           "ingredients"
@@ -1338,16 +1118,15 @@
             "bearerAuth": []
           }
         ],
-        "summary": "Information about ingrediet by id",
+        "summary": "Information about ingredient by id",
         "parameters": [
           {
-            "in": "header",
-            "name": "securitySchemes",
-            "description": "Bearer Token",
+            "in": "path",
+            "name": "id",
+            "description": "ingredient id",
             "required": true,
             "schema": {
-              "type": "string",
-              "format": "bearer"
+              "type": "string"
             }
           }
         ],
@@ -1359,7 +1138,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Ingrediet"
+                  "$ref": "#/components/schemas/Ingredient"
                 }
               }
             }
@@ -1671,7 +1450,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "example": "registration successful"
+            "example": "register successful"
           },
           "token": {
             "type": "string",
@@ -1682,7 +1461,7 @@
             "properties": {
               "_id": {
                 "type": "string",
-                "example": "registration successful"
+                "example": "6480ab5ea9564dc51344fd20"
               },
               "email": {
                 "type": "string",
@@ -1708,7 +1487,7 @@
         "properties": {
           "message": {
             "type": "string",
-            "example": "registration successful"
+            "example": "success"
           },
           "token": {
             "type": "string",
@@ -1719,7 +1498,7 @@
             "properties": {
               "_id": {
                 "type": "string",
-                "example": "registration successful"
+                "example": "6480ab5ea9564dc51344fd20"
               },
               "email": {
                 "type": "string",
@@ -1762,7 +1541,7 @@
           "name": "user"
         }
       },
-      "Ingrediets": {
+      "Ingredients": {
         "type": "array",
         "items": {
           "type": "object",
@@ -1786,10 +1565,10 @@
           }
         },
         "xml": {
-          "name": "ingrediets"
+          "name": "ingredients"
         }
       },
-      "Ingrediet": {
+      "Ingredient": {
         "type": "object",
         "properties": {
           "_id": {
@@ -1810,7 +1589,7 @@
           }
         },
         "xml": {
-          "name": "ingrediets"
+          "name": "ingredients"
         }
       },
       "Categories": {
@@ -1845,13 +1624,13 @@
               "type": "string",
               "example": "640c2dd963a319ea671e3724"
             },
-            "recipeId": {
+            "recipeIds": {
               "type": "array",
               "items": {
                 "type": "string"
               }
             },
-            "measure": {
+            "measures": {
               "type": "array",
               "items": {
                 "type": "string"
@@ -1908,21 +1687,27 @@
             "type": "string",
             "example": "640c2dd963a319ea671e365c"
           },
-          "recipeId": {
-            "type": "string",
-            "example": "200"
+          "recipeIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "640c2dd963a319ea671e365c"
+            }
           },
-          "measure": {
-            "type": "string",
-            "example": "g"
+          "measures": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "200 g"
+            }
           },
           "name": {
             "type": "string",
-            "example": "g"
+            "example": "beef"
           },
           "image": {
             "type": "string",
-            "example": "g"
+            "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678564674/ko2hkbmudyrmehzqfvgu.png"
           },
           "_id": {
             "type": "string",
@@ -2027,6 +1812,104 @@
         }
       },
       "Favrecipes": {
+        "type": "object",
+        "properties": {
+          "favoriteRecipes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "6462a8f74c3d0ddd28897fb8"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Mediterranean Pasta Salad"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Seafood"
+                },
+                "area": {
+                  "type": "string",
+                  "example": "Italian"
+                },
+                "instructions": {
+                  "type": "string",
+                  "example": "Bring a large saucepan of salted water to the boil..."
+                },
+                "description": {
+                  "type": "string",
+                  "example": "A salad made with pasta, vegetables..."
+                },
+                "thumb": {
+                  "type": "string",
+                  "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+                },
+                "preview": {
+                  "type": "string",
+                  "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+                },
+                "time": {
+                  "type": "string",
+                  "example": "27"
+                },
+                "youtube": {
+                  "type": "string",
+                  "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "ingredients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "640c2dd963a319ea671e3724"
+                      },
+                      "measure": {
+                        "type": "string",
+                        "example": "200 g"
+                      }
+                    }
+                  }
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6481ae94d9b2746f712cd11f"
+                    }
+                  }
+                },
+                "popularity": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "6481ae94d9b2746f712cd11f"
+                  }
+                }
+              }
+            }
+          },
+          "total": {
+            "type": "string",
+            "example": "1"
+          }
+        },
+        "xml": {
+          "name": "categories"
+        }
+      },
+      "PopularRecipes": {
         "type": "array",
         "items": {
           "type": "object",
@@ -2105,7 +1988,8 @@
             "popularity": {
               "type": "array",
               "items": {
-                "type": "string"
+                "type": "string",
+                "example": "6481ae94d9b2746f712cd11f"
               }
             }
           }
@@ -2114,9 +1998,17 @@
           "name": "categories"
         }
       },
-      "UpdateAvatar": {
+      "UpdateUser": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string",
+            "example": "648da47ba9c7351a78ca7189"
+          },
+          "name": {
+            "type": "string",
+            "example": "Test NameUpdating2"
+          },
           "avatarURL": {
             "type": "string",
             "example": "https://res.cloudinary.com/dj5smkin6/image/upload/v1686237332/avatars/6481ae94d9b2746f712cd11f_ice-cream.jpg.jpg"
@@ -2138,18 +2030,196 @@
           "name": "user"
         }
       },
-      "SearchResponce": {
+      "OwnRecipes": {
         "type": "object",
         "properties": {
           "ownRecipes": {
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "6462a8f74c3d0ddd28897fb8"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Mediterranean Pasta Salad"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Seafood"
+                },
+                "area": {
+                  "type": "string",
+                  "example": "Italian"
+                },
+                "instructions": {
+                  "type": "string",
+                  "example": "Bring a large saucepan of salted water to the boil..."
+                },
+                "description": {
+                  "type": "string",
+                  "example": "A salad made with pasta, vegetables..."
+                },
+                "thumb": {
+                  "type": "string",
+                  "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+                },
+                "preview": {
+                  "type": "string",
+                  "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+                },
+                "time": {
+                  "type": "string",
+                  "example": "27"
+                },
+                "youtube": {
+                  "type": "string",
+                  "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "ingredients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "640c2dd963a319ea671e3724"
+                      },
+                      "measure": {
+                        "type": "string",
+                        "example": "200 g"
+                      }
+                    }
+                  }
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6481ae94d9b2746f712cd11f"
+                    }
+                  }
+                },
+                "popularity": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "6481ae94d9b2746f712cd11f"
+                  }
+                }
+              }
             }
           },
           "total": {
             "type": "string",
-            "example": "7"
+            "example": "1"
+          }
+        },
+        "xml": {
+          "name": "recipes"
+        }
+      },
+      "SearchResponce": {
+        "type": "object",
+        "properties": {
+          "recipes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "6462a8f74c3d0ddd28897fb8"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Mediterranean Pasta Salad"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "Seafood"
+                },
+                "area": {
+                  "type": "string",
+                  "example": "Italian"
+                },
+                "instructions": {
+                  "type": "string",
+                  "example": "Bring a large saucepan of salted water to the boil..."
+                },
+                "description": {
+                  "type": "string",
+                  "example": "A salad made with pasta, vegetables..."
+                },
+                "thumb": {
+                  "type": "string",
+                  "example": "https://www.themealdb.com/images/media/meals/wvqpwt1468339226.jpg"
+                },
+                "preview": {
+                  "type": "string",
+                  "example": "https://res.cloudinary.com/ddbvbv5sp/image/upload/v1678560402/mwtf7uqrnsxvlpjqtslc.jpg"
+                },
+                "time": {
+                  "type": "string",
+                  "example": "27"
+                },
+                "youtube": {
+                  "type": "string",
+                  "example": "https://www.youtube.com/watch?v=e52IL8zYmaE"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "ingredients": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "640c2dd963a319ea671e3724"
+                      },
+                      "measure": {
+                        "type": "string",
+                        "example": "200 g"
+                      }
+                    }
+                  }
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "6481ae94d9b2746f712cd11f"
+                    }
+                  }
+                },
+                "popularity": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "example": "6481ae94d9b2746f712cd11f"
+                  }
+                }
+              }
+            }
+          },
+          "total": {
+            "type": "string",
+            "example": "1"
           }
         },
         "xml": {
@@ -2174,11 +2244,6 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
-      },
-      "api_key": {
-        "type": "apiKey",
-        "name": "api_key",
-        "in": "header"
       }
     }
   }
