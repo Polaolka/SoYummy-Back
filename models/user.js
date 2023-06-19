@@ -29,14 +29,14 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
-    accessToken: {
-      type: String,
-      default: "",
-    },
-    refreshToken: {
-      type: String,
-      default: "",
-    },
+    // accessToken: {
+    //   type: String,
+    //   default: "",
+    // },
+    // refreshToken: {
+    //   type: String,
+    //   default: "",
+    // },
     avatarURL: {
       type: String,
       required: true,
@@ -122,7 +122,7 @@ const removeShoppingListItem = Joi.object({
 });
 
 const refreshSchema = Joi.object({
-  refreshToken: Joi.string().required().messages({
+  refreshToken: Joi.string().messages({
     "string.base": "The refreshToken must be a string.",
     "any.required": "The refreshToken field is required.",
   }),
