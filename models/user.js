@@ -22,7 +22,7 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: [true, "Set name"],
-      minlength: 2,
+      minlength: 1,
       maxlength: 16,
     },
     token: {
@@ -54,6 +54,9 @@ const userSchema = new Schema(
       default: [],
     },
     tenDayFlag: { type: Boolean, default: false },
+    firstDayFlag: { type: Boolean, default: false },
+    firstRecipeFlag: { type: Boolean, default: false },
+    tenFavRecipesFlag: { type: Boolean, default: false },
   },
   { versionKey: false, timestamps: true }
 );

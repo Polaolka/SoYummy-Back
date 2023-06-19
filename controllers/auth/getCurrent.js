@@ -6,8 +6,7 @@ const getCurrent = async (req, res) => {
         email,
         shoppingList,
         avatarURL,
-        // daysInApp,
-        // addedRecipes,
+        refreshToken
      } = req.user;
 
     const data = {
@@ -15,7 +14,8 @@ const getCurrent = async (req, res) => {
         name,
         email,
         shoppingList,
-        avatarURL 
+        avatarURL,
+        refreshToken
 }
 
     res.json(data)
