@@ -1,5 +1,6 @@
 const { Recipe } = require("../../models/recipe");
-const { RequestError } = require("../../helpers");
+const { User } = require("../../models/user");
+const { RequestError, congrTenFavRecipes } = require("../../helpers");
 const mongoose = require("mongoose");
 
 const addToFavRecipes = async (req, res) => {
@@ -25,12 +26,20 @@ const addToFavRecipes = async (req, res) => {
   const result = await Recipe.findByIdAndUpdate(
     recipeId,
     {
-      $push: { popularity: { id: userId } }, //Поле popularity - це масив, до якого додаємо значення
+      $push: { popularity: { id: userId } },
     },
     { new: true }
   );
 
-  return res.status(201).json(result);
+  const count = await Recipe.countDocuments({
+    "popularity.id": userId,
+  });
+  const user = await User.findOne({ _id: userId });
+
+  const congrats = congrTenFavRecipes(count, user);
+  const message = congrats ? congrats : "";
+
+  return res.status(201).json({ ...result._doc, motivation: message });
 };
 
 module.exports = addToFavRecipes;

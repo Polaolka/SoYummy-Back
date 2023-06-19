@@ -15,7 +15,6 @@ const getByIngredient = async (req, res) => {
   const regex = new RegExp(`.*${ingredient}.*`, "i");
 
   const ingredientIds = await Ingredient.find({ name: regex }, { _id: 1 });
-  console.log(ingredientIds);
 
   if (ingredientIds.length === 0) {
     throw RequestError(400, "Bad request");

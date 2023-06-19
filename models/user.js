@@ -22,21 +22,21 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: [true, "Set name"],
-      minlength: 2,
+      minlength: 1,
       maxlength: 16,
     },
     token: {
       type: String,
       default: "",
     },
-    accesssToken: {
-      type: String,
-      default: "",
-    },
-    refreshToken: {
-      type: String,
-      default: "",
-    },
+    // accessToken: {
+    //   type: String,
+    //   default: "",
+    // },
+    // refreshToken: {
+    //   type: String,
+    //   default: "",
+    // },
     avatarURL: {
       type: String,
       required: true,
@@ -54,6 +54,9 @@ const userSchema = new Schema(
       default: [],
     },
     tenDayFlag: { type: Boolean, default: false },
+    firstDayFlag: { type: Boolean, default: false },
+    firstRecipeFlag: { type: Boolean, default: false },
+    tenFavRecipesFlag: { type: Boolean, default: false },
     isSubscribe: { type: Boolean, default: false },
   },
   { versionKey: false, timestamps: true }
@@ -119,7 +122,7 @@ const removeShoppingListItem = Joi.object({
 });
 
 const refreshSchema = Joi.object({
-  refreshToken: Joi.string().required().messages({
+  refreshToken: Joi.string().messages({
     "string.base": "The refreshToken must be a string.",
     "any.required": "The refreshToken field is required.",
   }),

@@ -16,7 +16,6 @@ const removeShopingItem = async (req, res) => {
     (item) => item.ingredientId.toString() === ingredientId.toString()
   );
   const shoppingItemRemove = shoppingList[index];
-  console.log(shoppingItemRemove);
 
   if (index === -1) {
     throw RequestError(404, "Not found");

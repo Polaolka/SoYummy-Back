@@ -1,4 +1,3 @@
-const { User } = require("../../models/user");
 const { isValidObjectId } = require("mongoose");
 const { RequestError } = require("../../helpers");
 
