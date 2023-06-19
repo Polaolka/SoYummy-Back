@@ -6,7 +6,7 @@ const { SECRET_KEY, ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
 
 const { User } = require("../../models/user");
 
-const { RequestError, sendEmail } = require("../../helpers");
+const { RequestError, sendEmail, congFirstDayUser } = require("../../helpers");
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -36,11 +36,16 @@ const register = async (req, res) => {
 
   await User.findByIdAndUpdate(newUser._id, { token });
 
+  let motivation = "";
+  await User.findByIdAndUpdate(newUser._id, { accessToken, refreshToken });
+  if (newUser) {
+    const congratsMessage = congFirstDayUser(newUser);
+    motivation = congratsMessage ? congratsMessage : "";
+  }
+
   res.status(201).json({
     message: "register  successful",
     token,
-    // accessToken, 
-    // refreshToken,
     user: {
       _id: newUser._id,
       email: newUser.email,
@@ -48,11 +53,11 @@ const register = async (req, res) => {
       email: newUser.email,
       avatarURL: newUser.avatarURL,
     },
+    motivation,
   });
 };
 
 module.exports = register;
-
 
 // const bcrypt = require("bcrypt");
 // const gravatar = require("gravatar");
