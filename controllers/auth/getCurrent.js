@@ -5,7 +5,6 @@ const getCurrent = async (req, res) => {
         name,
         email,
         shoppingList,
-        token,
         avatarURL,
         // daysInApp,
         // addedRecipes,
@@ -16,7 +15,6 @@ const getCurrent = async (req, res) => {
         name,
         email,
         shoppingList,
-        token,
         avatarURL 
 }
 

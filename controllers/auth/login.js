@@ -42,17 +42,20 @@ const login = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "800h" });
+  // const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "800h" });
   const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {
-    expiresIn: "10m",
+    expiresIn: "1m",
   });
   const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, {
     expiresIn: "7d",
   });
-  await User.findByIdAndUpdate(user._id, { token });
+  user.accessToken = accessToken; // Оновлення accessToken
+  user.refreshToken = refreshToken; // Оновлення refreshToken
+
+  await user.save(); // Збереження змін у базі даних
 
   res.json({
-    token,
+    // token,
     accessToken,
     refreshToken,
     user: {

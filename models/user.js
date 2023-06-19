@@ -29,7 +29,7 @@ const userSchema = new Schema(
       type: String,
       default: "",
     },
-    accesssToken: {
+    accessToken: {
       type: String,
       default: "",
     },

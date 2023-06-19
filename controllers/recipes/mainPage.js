@@ -15,8 +15,6 @@ const mainPage = async (req, res) => {
     response[cat.name] = fourRecipes;
   });
 
-  console.log(category);
-
   res.status(200).json(response);
 };
 
