@@ -34,7 +34,7 @@ const register = async (req, res) => {
   // const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, { expiresIn: "10m" });
   // const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, { expiresIn: "7d" });
 
-  await User.findByIdAndUpdate(newUser._id, { token, accessToken, refreshToken });
+  await User.findByIdAndUpdate(newUser._id, { token });
 
   res.status(201).json({
     message: "register  successful",
