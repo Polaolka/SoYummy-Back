@@ -57,6 +57,7 @@ const userSchema = new Schema(
     firstDayFlag: { type: Boolean, default: false },
     firstRecipeFlag: { type: Boolean, default: false },
     tenFavRecipesFlag: { type: Boolean, default: false },
+    isSubscribe: { type: Boolean, default: false },
   },
   { versionKey: false, timestamps: true }
 );

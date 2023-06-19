@@ -8,6 +8,7 @@ const congTenDayUser = require("./congTenDayUser");
 const congFirstRecipeUser = require("./congFirstRecipeUser");
 const congrTenFavRecipes = require("./congrTenFavRecipes");
 const congFirstDayUser = require("./congFirstDayUser");
+const getRandomProperty = require("./getRandomProperty");
 
 module.exports = {
   RequestError,
@@ -20,4 +21,6 @@ module.exports = {
   congFirstRecipeUser,
   congrTenFavRecipes,
   congFirstDayUser
+  resizeIMG,
+  getRandomProperty,
 };
