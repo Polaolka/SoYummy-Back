@@ -54,6 +54,7 @@ const userSchema = new Schema(
       default: [],
     },
     tenDayFlag: { type: Boolean, default: false },
+    isSubscribe: { type: Boolean, default: false },
   },
   { versionKey: false, timestamps: true }
 );

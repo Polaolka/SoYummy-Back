@@ -9,6 +9,7 @@ const addToShoppingList = require("./addToShoppingList");
 const removeShopingItem = require("./removeShopingItem");
 const getShoppingList = require("./getShoppingList");
 const refresh = require("./refresh");
+const subscribe = require("./subscribe");
 
 module.exports = {
   register,
@@ -21,5 +22,6 @@ module.exports = {
   addToShoppingList,
   removeShopingItem,
   getShoppingList,
-  refresh
+  refresh,
+  subscribe,
 };
