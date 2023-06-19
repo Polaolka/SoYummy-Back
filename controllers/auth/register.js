@@ -37,7 +37,6 @@ const register = async (req, res) => {
   await User.findByIdAndUpdate(newUser._id, { token });
 
   let motivation = "";
-  await User.findByIdAndUpdate(newUser._id, { accessToken, refreshToken });
   if (newUser) {
     const congratsMessage = congFirstDayUser(newUser);
     motivation = congratsMessage ? congratsMessage : "";
