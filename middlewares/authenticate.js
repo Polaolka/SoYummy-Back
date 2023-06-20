@@ -27,6 +27,12 @@ const authenticate = async (req, res, next) => {
 
 module.exports = authenticate;
 
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  //
+// ⤵️ the code below should be used when using the refresh token on the frontend!⤵️
+
+
+
 // const jwt = require("jsonwebtoken");
 
 // const { SECRET_KEY, ACCESS_SECRET_KEY, REFRESH_SECRET_KEY } = process.env;
