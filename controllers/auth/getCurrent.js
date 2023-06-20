@@ -1,4 +1,3 @@
-const { User } = require("../../models/user");
 
 const getCurrent = async (req, res) => {
     const { _id,
@@ -6,7 +5,8 @@ const getCurrent = async (req, res) => {
         email,
         shoppingList,
         avatarURL,
-        // refreshToken
+        refreshToken,
+        accessToken,
      } = req.user;
 
     const data = {
@@ -15,7 +15,8 @@ const getCurrent = async (req, res) => {
         email,
         shoppingList,
         avatarURL,
-        // refreshToken
+        refreshToken,
+        accessToken,
 }
 
     res.json(data)

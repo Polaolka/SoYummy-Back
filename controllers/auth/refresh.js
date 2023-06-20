@@ -21,12 +21,12 @@ const refresh = async (req, res) => {
 
     const payload = { id };
 
-    const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {expiresIn: "1m"});
+    const accessToken = jwt.sign(payload, ACCESS_SECRET_KEY, {expiresIn: "2m"});
     const refreshToken = jwt.sign(payload, REFRESH_SECRET_KEY, { expiresIn: "7d" });
     user.accessToken = accessToken; 
     user.refreshToken = refreshToken; 
     await User.findByIdAndUpdate(user._id, {accessToken, refreshToken} );
-    // await user.save(); 
+
     res.json({ accessToken,  refreshToken});
   }
   catch(error) {

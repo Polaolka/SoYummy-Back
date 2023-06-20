@@ -3,9 +3,12 @@ const { RequestError, sendEmail } = require("../../helpers");
 
 const subscribe = async (req, res) => {
 
-  const { _id: userId, name } = req.user;
+  const { _id: userId, name, isSubscribe } = req.user;
+
+  if (isSubscribe) {
+    throw RequestError(409, `User ${name} was alreaady Subscribe`);
+  }
   const { email } = req.body;
-console.log(email);
 
   const subscrEmail = {
     to: email,
