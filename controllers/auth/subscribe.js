@@ -13,13 +13,46 @@ const subscribe = async (req, res) => {
   const subscrEmail = {
     to: email,
     subject: "SoYummy subscribe",
-    html: `<h2>Dear connoisseur of delicious food ${name}</h2>
-    <br />
-    <p>
-    You have <strong>successfully subscribed</strong> to our newsletter!
-    </p>
-    <br />
-    <a href="https://anastasiiahm.github.io/soyummy-project/">Visit the SoYummy page</a>
+    html: `
+    <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #ffffff;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+
+  </style>
+</head>
+<body>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#f0f0f0">
+    <tr>
+      <td align="center" valign="top" style="padding: 20px;">
+        <h1>Welcome to Our Newsletter!</h1>
+        <p>Dear Subscriber,</p>
+        <p>We are excited to have you on board. Stay tuned for our latest new juicy recipes and updates.</p>
+        <p>Thank you!</p>
+        <p>Best Regards,</p>
+        <p>The SoYummy Team</p>
+        <p>
+          <a class="button" href="https://anastasiiahm.github.io/soyummy-project/">
+            Visit the SoYummy page
+          </a>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
     `,
   };
 
